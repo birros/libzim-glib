@@ -1,0 +1,81 @@
+{
+    "id": "com.github.birros.LibZimGLib",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "3.26",
+    "sdk": "org.gnome.Sdk",
+    "command": "bash",
+    "build-options" : {
+        "cflags": "-O2 -g",
+        "cxxflags": "-O2 -g"
+    },
+    "modules": [
+        {
+            "name": "xapian-core",
+            "cleanup": [
+                "/bin",
+                "/include",
+                "/lib/pkgconfig",
+                "/lib/cmake",
+                "/lib/*.la",
+                "/share"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://oligarchy.co.uk/xapian/1.4.5/xapian-core-1.4.5.tar.xz",
+                    "sha256": "85b5f952de9df925fd13e00f6e82484162fd506d38745613a50b0a2064c6b02b"
+                }
+            ]
+        },
+        {
+            /**
+             * require
+             *   xapian-core
+             */
+            "name": "libzim",
+            "buildsystem": "meson",
+            "builddir": true,
+            "cleanup": [
+                "/bin",
+                "/include",
+                "/lib/pkgconfig"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/openzim/libzim/archive/3.0.0.tar.gz",
+                    "sha256": "eb2abc7cb99ba67e74004ded48c02fe4c2de40ee19f56896ee79e533af11159c"
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "mkdir -p subprojects/packagecache"
+                    ]
+                },
+                {
+                    "type": "file",
+                    "url": "https://github.com/google/googletest/archive/release-1.8.0.zip",
+                    "sha256": "f3ed3b58511efd272eb074a3a6d6fb79d7c2e6a0e374323d1e6bcbcc1ef141bf",
+                    "dest-filename": "subprojects/packagecache/gtest-1.8.0.zip"
+                },
+                {
+                    "type": "file",
+                    "url": "https://wrapdb.mesonbuild.com/v1/projects/gtest/1.8.0/4/get_zip",
+                    "sha256": "0b90fe055acbdb002a37dfb035184b306008b763931158497ef5dbaa8c7925af",
+                    "dest-filename": "subprojects/packagecache/gtest-1.8.0-4-wrap.zip"
+                }
+            ]
+        },
+        {
+            "name": "libzim-glib",
+            "buildsystem": "meson",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/birros/libzim-glib"
+                }
+            ]
+        }
+    ]
+}

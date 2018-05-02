@@ -1,4 +1,4 @@
-project('libzim-glib', 'cpp', version: '3.0.0')
+project('libzim-glib', 'cpp', version: '3.1.0')
 
 zim_version = meson.project_version()
 zim_version_digits = zim_version.split('.')

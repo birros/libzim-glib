@@ -33,6 +33,7 @@ struct _ZimArticleClass
 
 GType        zim_article_get_type (void);
 ZimArticle * zim_article_new (void);
+const char * zim_article_get_title (ZimArticle *article);
 const char * zim_article_get_url (ZimArticle *article);
 const char * zim_article_get_mime_type (ZimArticle *article);
 const char * zim_article_get_data (ZimArticle *article, gsize *size);

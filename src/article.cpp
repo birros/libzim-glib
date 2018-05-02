@@ -75,6 +75,22 @@ zim_article_new (void)
 }
 
 /**
+ * zim_article_get_title:
+ * @article: A #ZimArticle
+ *
+ * Get the title of the article.
+ *
+ * Returns: (transfer full): the title of the article
+ */
+const char *
+zim_article_get_title (ZimArticle *article)
+{
+    ZimArticlePrivate *priv = ZIM_ARTICLE_GET_PRIVATE (article);
+    std::string title = priv->article.getTitle ();
+    return g_strdup (title.c_str ());
+}
+
+/**
  * zim_article_get_url:
  * @article: A #ZimArticle
  *

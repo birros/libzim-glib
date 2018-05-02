@@ -2,6 +2,7 @@
 #include <zim/article.h>
 #include <zim/blob.h>
 #include "article.h"
+#include "file.h"
 
 /**
  * SECTION: zim-article
@@ -17,14 +18,26 @@
 typedef struct _ZimArticlePrivate ZimArticlePrivate;
 struct _ZimArticlePrivate
 {
+    ZimFile *zim_file;
     zim::Article article;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (ZimArticle, zim_article, G_TYPE_OBJECT)
 
 static void
+zim_article_finalize (GObject *gobject)
+{
+    ZimArticlePrivate *priv = ZIM_ARTICLE_GET_PRIVATE (gobject);
+
+    g_object_unref (priv->zim_file);
+
+    G_OBJECT_CLASS (zim_article_parent_class)->dispose (gobject);
+}
+
+static void
 zim_article_class_init (ZimArticleClass *klass)
 {
+    G_OBJECT_CLASS (klass)->finalize = zim_article_finalize;
 }
 
 static void
@@ -33,9 +46,13 @@ zim_article_init (ZimArticle *object)
 }
 
 void
-zim_article_set_internal_article (ZimArticle *article, const zim::Article article_cpp)
+zim_article_set_internal_article (ZimArticle *article, ZimFile *zim_file, const zim::Article article_cpp)
 {
     ZimArticlePrivate *priv = ZIM_ARTICLE_GET_PRIVATE (article);
+
+    priv->zim_file = zim_file;
+    g_object_ref (zim_file);
+
     priv->article = article_cpp;
 }
 

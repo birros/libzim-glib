@@ -133,7 +133,7 @@ zim_file_get_article_by_index (ZimFile *file, unsigned int index)
 
     ZimArticle *article = zim_article_new ();
     zim::Article article_cpp = priv->file->getArticle (index);
-    zim_article_set_internal_article (article, article_cpp);
+    zim_article_set_internal_article (article, file, article_cpp);
 
     return article;
 }
@@ -155,7 +155,7 @@ zim_file_get_article_by_namespace (ZimFile *file, const char namesp, const char 
 
     ZimArticle *article = zim_article_new ();
     zim::Article article_cpp = priv->file->getArticle (namesp, path);
-    zim_article_set_internal_article (article, article_cpp);
+    zim_article_set_internal_article (article, file, article_cpp);
 
     return article;
 }

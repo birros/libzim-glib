@@ -126,7 +126,7 @@ main (int argc, char *argv[])
     printf ("==ZIM SEARCH SUGGESTION MODE (10 first results)==\n");
 
     ZimSearch *search = zim_search_new (zim_file);
-    g_object_unref (zim_file);
+    //g_object_unref (zim_file);
     zim_search_set_query (search, "ab");
     zim_search_set_range (search, 0, 10);
     zim_search_set_suggestion_mode (search, TRUE);
@@ -135,7 +135,7 @@ main (int argc, char *argv[])
     printf (STYLE_BOLD "matches_estimated: " STYLE_NO_BOLD "%d\n", matches_estimated);
 
     ZimSearchIterator *search_iterator = zim_search_begin (search);
-    g_object_unref (search);
+    //g_object_unref (search);
     do {
         const char *title = zim_search_iterator_get_title(search_iterator);
         const char *url = zim_search_iterator_get_url(search_iterator);

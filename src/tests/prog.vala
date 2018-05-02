@@ -108,5 +108,25 @@ static int main (string[] argv) {
 
     //assert (first_article_url == "!!!.html");
 
+
+    // zim search suggestion mode (10 first results)
+    stdout.printf ("==ZIM SEARCH SUGGESTION MODE (10 first results)==\n");
+
+    Zim.Search search = new Zim.Search (zim_file);
+    search.set_query ("ab");
+    search.set_range (0, 10);
+    search.set_suggestion_mode (true);
+
+    uint matches_estimated = search.get_matches_estimated ();
+    stdout.printf (STYLE_BOLD + "matches_estimated: " + STYLE_NO_BOLD + "%d\n", matches_estimated);
+
+    Zim.SearchIterator search_iterator = search.begin ();
+    do {
+        string title = search_iterator.get_title();
+        string url = search_iterator.get_url();
+        stdout.printf (STYLE_BOLD + "title: " + STYLE_NO_BOLD + "%s\n", title);
+        stdout.printf (STYLE_BOLD + "\turl: " + STYLE_NO_BOLD + "%s\n", url);
+    } while (search_iterator.next());
+
     return 0;
 }

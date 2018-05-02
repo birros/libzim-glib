@@ -2,6 +2,8 @@
 #include "file.h"
 #include "fileheader.h"
 #include "article.h"
+#include "search.h"
+#include "search-iterator.h"
 #include "misc.h"
 
 #define STYLE_BOLD    "\033[1m"
@@ -118,6 +120,27 @@ main (int argc, char *argv[])
 
 
     //g_assert_cmpstr (first_article_url, ==, "!!!.html");
+
+
+    // zim search suggestion mode (10 first results)
+    printf ("==ZIM SEARCH SUGGESTION MODE (10 first results)==\n");
+
+    ZimSearch *search = zim_search_new (zim_file);
+    zim_search_set_query (search, "ab");
+    zim_search_set_range (search, 0, 10);
+    zim_search_set_suggestion_mode (search, TRUE);
+
+    unsigned int matches_estimated = zim_search_get_matches_estimated (search);
+    printf (STYLE_BOLD "matches_estimated: " STYLE_NO_BOLD "%d\n", matches_estimated);
+
+    ZimSearchIterator *search_iterator = zim_search_begin (search);
+    do {
+        const char *title = zim_search_iterator_get_title(search_iterator);
+        const char *url = zim_search_iterator_get_url(search_iterator);
+        printf (STYLE_BOLD "title: " STYLE_NO_BOLD "%s\n", title);
+        printf (STYLE_BOLD "\turl: " STYLE_NO_BOLD "%s\n", url);
+    } while (zim_search_iterator_next(search_iterator));
+
 
     return 0;
 }

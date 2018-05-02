@@ -109,5 +109,26 @@ def main (argc, argv):
     #assert (first_article_url == "!!!.html" )
 
 
+    # zim search suggestion mode (10 first results)
+    print ("==ZIM SEARCH SUGGESTION MODE (10 first results)==");
+
+    search = Zim.Search.new (zim_file)
+    search.set_query ("ab")
+    search.set_range (0, 10)
+    search.set_suggestion_mode (True)
+
+    matches_estimated = search.get_matches_estimated ()
+    print(STYLE_BOLD + "matches_estimated: " + STYLE_NO_BOLD + str(matches_estimated))
+
+    search_iterator = search.begin ();
+    while True:
+        title = search_iterator.get_title();
+        url = search_iterator.get_url();
+        print (STYLE_BOLD + "title: " + STYLE_NO_BOLD + title);
+        print (STYLE_BOLD + "\turl: " + STYLE_NO_BOLD + url);
+        if not search_iterator.next ():
+            break;
+
+
 if __name__ == "__main__":
     main (len(sys.argv), sys.argv)

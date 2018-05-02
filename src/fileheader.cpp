@@ -1,5 +1,6 @@
 #include <zim/fileheader.h>
 #include "fileheader.h"
+#include "file.h"
 
 /**
  * SECTION: zim-fileheader
@@ -15,14 +16,27 @@
 typedef struct _ZimFileheaderPrivate ZimFileheaderPrivate;
 struct _ZimFileheaderPrivate
 {
+    ZimFile *zim_file;
     zim::Fileheader fileheader;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (ZimFileheader, zim_fileheader, G_TYPE_OBJECT)
 
+
+static void
+zim_fileheader_finalize (GObject *gobject)
+{
+    ZimFileheaderPrivate *priv = ZIM_FILEHEADER_GET_PRIVATE (gobject);
+
+    g_object_unref (priv->zim_file);
+
+    G_OBJECT_CLASS (zim_fileheader_parent_class)->dispose (gobject);
+}
+
 static void
 zim_fileheader_class_init (ZimFileheaderClass *klass)
 {
+    G_OBJECT_CLASS (klass)->finalize = zim_fileheader_finalize;
 }
 
 static void
@@ -31,9 +45,13 @@ zim_fileheader_init (ZimFileheader *object)
 }
 
 void
-zim_fileheader_set_internal_fileheader (ZimFileheader *fileheader, const zim::Fileheader fileheader_cpp)
+zim_fileheader_set_internal_fileheader (ZimFileheader *fileheader, ZimFile *zim_file, const zim::Fileheader fileheader_cpp)
 {
     ZimFileheaderPrivate *priv = ZIM_FILEHEADER_GET_PRIVATE (fileheader);
+
+    priv->zim_file = zim_file;
+    g_object_ref (zim_file);
+
     priv->fileheader = fileheader_cpp;
 }
 

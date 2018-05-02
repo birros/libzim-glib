@@ -112,7 +112,7 @@ zim_file_get_fileheader (ZimFile *file)
     ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
 
     ZimFileheader* fileheader = zim_fileheader_new ();
-    zim_fileheader_set_internal_fileheader (fileheader, priv->file->getFileheader ());
+    zim_fileheader_set_internal_fileheader (fileheader, file, priv->file->getFileheader ());
 
     return fileheader;
 }

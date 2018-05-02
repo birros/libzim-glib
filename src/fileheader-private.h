@@ -3,6 +3,6 @@
 
 #include <zim/fileheader.h>
 
-void zim_fileheader_set_internal_fileheader (ZimFileheader *fileheader, const zim::Fileheader fileheader_cpp);
+void zim_fileheader_set_internal_fileheader (ZimFileheader *fileheader, ZimFile *zim_file, const zim::Fileheader fileheader_cpp);
 
 #endif

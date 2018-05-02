@@ -20,14 +20,25 @@
 typedef struct _ZimFilePrivate ZimFilePrivate;
 struct _ZimFilePrivate
 {
-    zim::File file;
+    zim::File *file;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (ZimFile, zim_file, G_TYPE_OBJECT)
 
 static void
+zim_file_finalize (GObject *gobject)
+{
+    ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (gobject);
+
+    delete priv->file;
+
+    G_OBJECT_CLASS (zim_file_parent_class)->dispose (gobject);
+}
+
+static void
 zim_file_class_init (ZimFileClass *klass)
 {
+    G_OBJECT_CLASS (klass)->finalize = zim_file_finalize;
 }
 
 static void
@@ -35,7 +46,7 @@ zim_file_init (ZimFile *object)
 {
 }
 
-zim::File
+zim::File *
 zim_file_get_internal_zim_file (ZimFile *zim_file)
 {
     ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (zim_file);
@@ -60,7 +71,7 @@ zim_file_new (const char *zimpath, GError **error)
     ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
     try
     {
-        priv->file = zim::File (zimpath);
+        priv->file = new zim::File (zimpath);
     }
     catch (const std::exception &err)
     {
@@ -83,7 +94,7 @@ unsigned int
 zim_file_get_namespace_begin_offset (ZimFile *file, char namesp)
 {
     ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
-    unsigned int index = priv->file.getNamespaceBeginOffset (namesp);
+    unsigned int index = priv->file->getNamespaceBeginOffset (namesp);
     return index;
 }
 
@@ -101,7 +112,7 @@ zim_file_get_fileheader (ZimFile *file)
     ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
 
     ZimFileheader* fileheader = zim_fileheader_new ();
-    zim_fileheader_set_internal_fileheader (fileheader, priv->file.getFileheader ());
+    zim_fileheader_set_internal_fileheader (fileheader, priv->file->getFileheader ());
 
     return fileheader;
 }
@@ -121,7 +132,7 @@ zim_file_get_article_by_index (ZimFile *file, unsigned int index)
     ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
 
     ZimArticle *article = zim_article_new ();
-    zim::Article article_cpp = priv->file.getArticle (index);
+    zim::Article article_cpp = priv->file->getArticle (index);
     zim_article_set_internal_article (article, article_cpp);
 
     return article;
@@ -143,7 +154,7 @@ zim_file_get_article_by_namespace (ZimFile *file, const char namesp, const char 
     ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
 
     ZimArticle *article = zim_article_new ();
-    zim::Article article_cpp = priv->file.getArticle (namesp, path);
+    zim::Article article_cpp = priv->file->getArticle (namesp, path);
     zim_article_set_internal_article (article, article_cpp);
 
     return article;

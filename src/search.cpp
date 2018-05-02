@@ -19,7 +19,7 @@
 typedef struct _ZimSearchPrivate ZimSearchPrivate;
 struct _ZimSearchPrivate
 {
-    zim::File *file;
+    ZimFile *zim_file;
     zim::Search *search;
 };
 
@@ -30,7 +30,7 @@ zim_search_finalize (GObject *gobject)
 {
     ZimSearchPrivate *priv = ZIM_SEARCH_GET_PRIVATE (gobject);
 
-    delete priv->file;
+    g_object_unref (priv->zim_file);
     delete priv->search;
 
     G_OBJECT_CLASS (zim_search_parent_class)->dispose (gobject);
@@ -45,6 +45,13 @@ zim_search_class_init (ZimSearchClass *klass)
 static void
 zim_search_init (ZimSearch *object)
 {
+}
+
+zim::Search *
+zim_search_get_internal_search (ZimSearch *search)
+{
+    ZimSearchPrivate *priv = ZIM_SEARCH_GET_PRIVATE (search);
+    return priv->search;
 }
 
 /**
@@ -62,11 +69,11 @@ zim_search_new (ZimFile *zim_file)
 
     ZimSearchPrivate *priv = ZIM_SEARCH_GET_PRIVATE (search);
 
-    zim::File zim_file_cpp = zim_file_get_internal_zim_file (zim_file);
-    std::string filepath = zim_file_cpp.getFilename();
+    priv->zim_file = zim_file;
+    g_object_ref(priv->zim_file);
 
-    priv->file = new zim::File (filepath);
-    priv->search = new zim::Search (priv->file);
+    zim::File *zim_file_cpp = zim_file_get_internal_zim_file (priv->zim_file);
+    priv->search = new zim::Search (zim_file_cpp);
 
     return search;
 }
@@ -144,7 +151,7 @@ zim_search_begin (ZimSearch *search)
 
     zim::search_iterator begin = priv->search->begin();
     zim::search_iterator end = priv->search->end();
-    zim_search_iterator_set_internals (search_iterator, begin, end);
+    zim_search_iterator_set_internal_search (search_iterator, search);
 
     return search_iterator;
 }

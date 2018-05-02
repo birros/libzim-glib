@@ -1,7 +1,9 @@
 #include <zim/search_iterator.h>
 #include "search-iterator.h"
 #include "file.h"
+#include "search.h"
 #include "file-private.h"
+#include "search-private.h"
 
 /**
  * SECTION: zim-search-iterator
@@ -17,6 +19,8 @@
 typedef struct _ZimSearchIteratorPrivate ZimSearchIteratorPrivate;
 struct _ZimSearchIteratorPrivate
 {
+    ZimSearch *search;
+
     zim::search_iterator begin;
     zim::search_iterator current;
     zim::search_iterator end;
@@ -27,6 +31,10 @@ G_DEFINE_TYPE_WITH_PRIVATE (ZimSearchIterator, zim_search_iterator, G_TYPE_OBJEC
 static void
 zim_search_iterator_finalize (GObject *gobject)
 {
+    ZimSearchIteratorPrivate *priv = ZIM_SEARCH_ITERATOR_GET_PRIVATE (gobject);
+
+    g_object_unref (priv->search);
+
     G_OBJECT_CLASS (zim_search_iterator_parent_class)->dispose (gobject);
 }
 
@@ -42,12 +50,17 @@ zim_search_iterator_init (ZimSearchIterator *object)
 }
 
 void
-zim_search_iterator_set_internals (ZimSearchIterator *search_iterator, zim::search_iterator begin, zim::search_iterator end)
+zim_search_iterator_set_internal_search (ZimSearchIterator *search_iterator, ZimSearch *search)
 {
     ZimSearchIteratorPrivate *priv = ZIM_SEARCH_ITERATOR_GET_PRIVATE (search_iterator);
-    priv->begin = begin;
-    priv->current = begin;
-    priv->end = end;
+    priv->search = search;
+    g_object_ref (priv->search);
+
+    zim::Search *search_cpp = zim_search_get_internal_search (search);
+
+    priv->begin = search_cpp->begin();
+    priv->current = priv->begin;
+    priv->end = search_cpp->end();
 }
 
 /**

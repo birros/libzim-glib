@@ -128,5 +128,23 @@ static int main (string[] argv) {
         stdout.printf (STYLE_BOLD + "\turl: " + STYLE_NO_BOLD + "%s\n", url);
     } while (search_iterator.next());
 
+
+    // zim find by title
+    stdout.printf ("==ZIM FIND BY TITLE==\n");
+
+    uint suggestion_size = 0;
+    const uint suggestion_count = 10;
+
+    Zim.FileIterator file_iterator = zim_file.find_by_title ('A', "ab");
+    do {
+        Zim.Article article = file_iterator.get_article();
+        string title = article.get_title();
+        string url = article.get_url();
+        stdout.printf (STYLE_BOLD + "title: " + STYLE_NO_BOLD + "%s\n", title);
+        stdout.printf (STYLE_BOLD + "\turl: " + STYLE_NO_BOLD + "%s\n", url);
+
+        suggestion_size++;
+    } while (file_iterator.next() && suggestion_size < suggestion_count);
+
     return 0;
 }

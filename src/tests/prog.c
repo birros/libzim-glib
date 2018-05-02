@@ -144,5 +144,22 @@ main (int argc, char *argv[])
     } while (zim_search_iterator_next(search_iterator));
 
 
+    // zim find by title
+    printf ("==ZIM FIND BY TITLE==\n");
+
+    unsigned int suggestion_size = 0;
+    const unsigned int suggestion_count = 10;
+
+    ZimFileIterator *file_iterator = zim_file_find_by_title (zim_file, 'A', "ab");
+    do {
+        ZimArticle *article = zim_file_iterator_get_article (file_iterator);
+        const char *title = zim_article_get_title (article);
+        const char *url = zim_article_get_url (article);
+        printf (STYLE_BOLD "title: " STYLE_NO_BOLD "%s\n", title);
+        printf (STYLE_BOLD "\turl: " STYLE_NO_BOLD "%s\n", url);
+
+        suggestion_size++;
+    } while (zim_file_iterator_next(file_iterator) && suggestion_size < suggestion_count);
+
     return 0;
 }

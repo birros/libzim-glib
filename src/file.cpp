@@ -1,10 +1,13 @@
 #include <zim/file.h>
+#include <zim/fileiterator.h>
 #include <zim/article.h>
 #include "file.h"
 #include "fileheader.h"
 #include "fileheader-private.h"
 #include "article.h"
 #include "article-private.h"
+#include "file-iterator.h"
+#include "file-iterator-private.h"
 
 /**
  * SECTION: zim-file
@@ -158,4 +161,26 @@ zim_file_get_article_by_namespace (ZimFile *file, const char namesp, const char 
     zim_article_set_internal_article (article, file, article_cpp);
 
     return article;
+}
+
+/**
+ * zim_file_find_by_title:
+ * @file: A #ZimFile
+ * @namesp: the namespace
+ * @title: title
+ *
+ * Start search of articles corresponding to a title.
+ *
+ * Returns: (transfer full): the #ZimFileIterator
+ */
+ZimFileIterator *
+zim_file_find_by_title (ZimFile *file, const char namesp, const char *title)
+{
+    ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
+
+    ZimFileIterator *file_iterator = zim_file_iterator_new ();
+    zim::File::const_iterator file_iterator_cpp = priv->file->findByTitle (namesp, title);
+    zim_file_iterator_set_internal_file_iterator (file_iterator, file, file_iterator_cpp);
+
+    return file_iterator;
 }

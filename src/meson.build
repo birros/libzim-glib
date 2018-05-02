@@ -4,7 +4,8 @@ public_headers = [
     'misc.h',
     'fileheader.h',
     'search.h',
-    'search-iterator.h'
+    'search-iterator.h',
+    'file-iterator.h'
 ]
 
 sources = [
@@ -13,7 +14,8 @@ sources = [
     'misc.cpp',
     'fileheader.cpp',
     'search.cpp',
-    'search-iterator.cpp'
+    'search-iterator.cpp',
+    'file-iterator.cpp'
 ]
 
 libzim = shared_library(

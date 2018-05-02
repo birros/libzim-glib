@@ -130,5 +130,24 @@ def main (argc, argv):
             break;
 
 
+    # zim find by title
+    print ("==ZIM FIND BY TITLE==")
+
+    suggestion_size = 0
+    suggestion_count = 10
+
+    file_iterator = zim_file.find_by_title (ord('A'), "ab")
+    while True:
+        article = file_iterator.get_article()
+        title = article.get_title()
+        url = article.get_url()
+        print (STYLE_BOLD + "title: " + STYLE_NO_BOLD + title)
+        print (STYLE_BOLD + "\turl: " + STYLE_NO_BOLD + url)
+
+        suggestion_size += 1
+        if not (file_iterator.next () and suggestion_size < suggestion_count):
+            break;
+
+
 if __name__ == "__main__":
     main (len(sys.argv), sys.argv)

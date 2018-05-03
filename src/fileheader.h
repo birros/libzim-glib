@@ -35,6 +35,7 @@ GType           zim_fileheader_get_type (void) G_GNUC_CONST;
 ZimFileheader * zim_fileheader_new (void);
 gboolean        zim_fileheader_has_main_page (ZimFileheader *fileheader);
 unsigned int    zim_fileheader_get_main_page (ZimFileheader *fileheader);
+const char *    zim_fileheader_get_uuid (ZimFileheader *fileheader);
 
 G_END_DECLS
 

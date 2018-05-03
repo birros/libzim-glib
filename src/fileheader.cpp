@@ -1,3 +1,4 @@
+#include <sstream>
 #include <zim/fileheader.h>
 #include "fileheader.h"
 #include "file.h"
@@ -102,4 +103,22 @@ zim_fileheader_get_main_page (ZimFileheader* fileheader)
 {
     ZimFileheaderPrivate *priv = ZIM_FILEHEADER_GET_PRIVATE (fileheader);
     return priv->fileheader.getMainPage ();
+}
+
+/**
+ * zim_fileheader_get_uuid:
+ * @fileheader: A #ZimFileheader
+ *
+ * Get the uuid of the zim file.
+ *
+ * Returns: the uuid of the zim file
+ */
+const char *
+zim_fileheader_get_uuid (ZimFileheader* fileheader)
+{
+    ZimFileheaderPrivate *priv = ZIM_FILEHEADER_GET_PRIVATE (fileheader);
+    std::ostringstream s;
+    s << priv->fileheader.getUuid();
+    std::string uuid = s.str();
+    return g_strdup (uuid.c_str ());
 }

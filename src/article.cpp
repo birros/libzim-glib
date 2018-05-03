@@ -118,8 +118,14 @@ const char *
 zim_article_get_mime_type (ZimArticle *article)
 {
     ZimArticlePrivate *priv = ZIM_ARTICLE_GET_PRIVATE (article);
-    std::string mime_type = priv->article.getMimeType ();
-    return g_strdup (mime_type.c_str ());
+    try {
+        std::string mime_type = priv->article.getMimeType ();
+        return g_strdup (mime_type.c_str ());
+    } catch (std::runtime_error e) {
+        std::wcout << "WARNING : " << e.what () << std::endl;
+        std::string mime_type = "";
+        return g_strdup (mime_type.c_str ());
+    }
 }
 
 /**

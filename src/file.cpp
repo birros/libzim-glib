@@ -102,6 +102,23 @@ zim_file_get_namespace_begin_offset (ZimFile *file, char namesp)
 }
 
 /**
+ * zim_file_get_namespace_count:
+ * @file: A #ZimFile
+ * @namesp: the namespace
+ *
+ * Get the count of entries in the namespace.
+ *
+ * Returns: the count of entries
+ */
+unsigned int
+zim_file_get_namespace_count (ZimFile *file, char namesp)
+{
+    ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
+    unsigned int count = priv->file->getNamespaceCount (namesp);
+    return count;
+}
+
+/**
  * zim_file_get_fileheader:
  * @file: A #ZimFile
  *
@@ -183,4 +200,36 @@ zim_file_find_by_title (ZimFile *file, const char namesp, const char *title)
     zim_file_iterator_set_internal_file_iterator (file_iterator, file, file_iterator_cpp);
 
     return file_iterator;
+}
+
+/**
+ * zim_file_get_filesize:
+ * @file: A #ZimFile
+ *
+ * Get file size of the archive.
+ *
+ * Returns: the size
+ */
+unsigned long
+zim_file_get_filesize (ZimFile *file)
+{
+    ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
+    unsigned long size = priv->file->getFilesize ();
+    return size;
+}
+
+/**
+ * zim_file_get_count_articles:
+ * @file: A #ZimFile
+ *
+ * Get the global count of entries.
+ *
+ * Returns: the global count of entries
+ */
+unsigned int
+zim_file_get_count_articles (ZimFile *file)
+{
+    ZimFilePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
+    unsigned int count = priv->file->getCountArticles ();
+    return count;
 }

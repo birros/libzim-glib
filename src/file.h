@@ -38,10 +38,13 @@ struct _ZimFileClass
 GType             zim_file_get_type (void) G_GNUC_CONST;
 ZimFile *         zim_file_new (const char *zimpath, GError **error);
 unsigned int      zim_file_get_namespace_begin_offset (ZimFile *file, char namesp);
+unsigned int      zim_file_get_namespace_count (ZimFile *file, char namesp);
 ZimFileheader *   zim_file_get_fileheader (ZimFile *file);
 ZimArticle *      zim_file_get_article_by_index (ZimFile *file, unsigned int index);
 ZimArticle *      zim_file_get_article_by_namespace (ZimFile *file, const char namesp, const char *path);
 ZimFileIterator * zim_file_find_by_title (ZimFile *file, const char namesp, const char *title);
+unsigned long     zim_file_get_filesize (ZimFile *file);
+unsigned int      zim_file_get_count_articles (ZimFile *file);
 
 G_END_DECLS
 

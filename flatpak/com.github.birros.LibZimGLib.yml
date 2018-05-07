@@ -1,0 +1,44 @@
+id: com.github.birros.LibZimGLib
+runtime: org.gnome.Platform
+runtime-version: '3.28'
+sdk: org.gnome.Sdk
+command: bash
+build-options:
+  cflags: -O2 -g
+  cxxflags: -O2 -g
+modules:
+  - name: xapian-core
+    cleanup:
+      - /bin
+      - /include
+      - /lib/pkgconfig
+      - /lib/cmake
+      - /lib/*.la
+      - /share
+    sources:
+      - type: archive
+        url: https://oligarchy.co.uk/xapian/1.4.5/xapian-core-1.4.5.tar.xz
+        sha256: 85b5f952de9df925fd13e00f6e82484162fd506d38745613a50b0a2064c6b02b
+
+  #
+  # require
+  #   xapian-core
+  #
+  - name: libzim
+    buildsystem: meson
+    builddir: true
+    cleanup:
+      - /bin
+      - /include
+      - /lib/pkgconfig
+    sources:
+      - type: archive
+        url: https://github.com/openzim/libzim/archive/3.3.0.tar.gz
+        sha256: 043b21f39e856694492248f0bc1db037d2860360a2fe68bb2793140b216934d7
+
+  - name: libzim-glib
+    buildsystem: meson
+    builddir: true
+    sources:
+      - type: git
+        url: https://github.com/birros/libzim-glib

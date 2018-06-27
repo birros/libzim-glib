@@ -33,8 +33,8 @@ modules:
       - /lib/pkgconfig
     sources:
       - type: archive
-        url: https://github.com/openzim/libzim/archive/3.3.0.tar.gz
-        sha256: 043b21f39e856694492248f0bc1db037d2860360a2fe68bb2793140b216934d7
+        url: https://github.com/openzim/libzim/archive/4.0.0.tar.gz
+        sha256: e195d30ba1b55dd2b6529fdd84fcbed6ec35ed4ddc957ad7725edabd20c3126c
 
   - name: libzim-glib
     buildsystem: meson

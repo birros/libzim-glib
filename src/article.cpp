@@ -129,6 +129,21 @@ zim_article_get_mime_type (ZimArticle *article)
 }
 
 /**
+ * zim_article_get_namespace:
+ * @article: A #ZimArticle
+ *
+ * Get the namespace of the article.
+ *
+ * Returns: the namespace of the article
+ */
+const char
+zim_article_get_namespace (ZimArticle *article)
+{
+    ZimArticlePrivate *priv = ZIM_ARTICLE_GET_PRIVATE (article);
+    return priv->article.getNamespace ();
+}
+
+/**
  * zim_article_get_data:
  * @article: A #ZimArticle
  * @size: (out) (optional): length of data
@@ -151,6 +166,36 @@ zim_article_get_data (ZimArticle *article, gsize *size)
     memcpy (content, blob.data (), blob.size ());
 
     return content;
+}
+
+/**
+ * zim_article_get_data_size:
+ * @article: A #ZimArticle
+ *
+ * Get the data size of the article.
+ *
+ * Returns: the data size of the article
+ */
+gsize
+zim_article_get_data_size (ZimArticle *article)
+{
+    ZimArticlePrivate *priv = ZIM_ARTICLE_GET_PRIVATE (article);
+    return priv->article.getArticleSize ();
+}
+
+/**
+ * zim_article_get_offset:
+ * @article: A #ZimArticle
+ *
+ * Get the offset of the article data.
+ *
+ * Returns: the offset of the article data
+ */
+gsize
+zim_article_get_offset (ZimArticle *article)
+{
+    ZimArticlePrivate *priv = ZIM_ARTICLE_GET_PRIVATE (article);
+    return priv->article.getOffset ();
 }
 
 /**

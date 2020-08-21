@@ -242,10 +242,9 @@ zim_article_get_redirect_article (ZimArticle *article)
     ZimArticlePrivate *priv = ZIM_ARTICLE_GET_PRIVATE (article);
 
     ZimArticle *redirect = zim_article_new ();
-    ZimArticlePrivate *redirect_priv = ZIM_ARTICLE_GET_PRIVATE (redirect);
 
     zim::Article redirect_cpp = priv->article.getRedirectArticle ();
-    redirect_priv->article = redirect_cpp;
+    zim_article_set_internal_article (redirect, priv->zim_file, redirect_cpp);
 
     return redirect;
 }

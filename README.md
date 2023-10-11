@@ -11,9 +11,8 @@ See flatpak manifest and adapt your system in consequence.
 ## Building
 
 ```
-mkdir build && cd build
-meson ..
-ninja
+meson setup build
+meson compile -C build
 ```
 
 ## Tests
@@ -21,8 +20,7 @@ ninja
 Enable tests by passing `enable-tests=true` argument during meson configuration.
 
 ```
-cd build
-meson -Denable-tests=true ..
+meson setup -Denable-tests=true build
 ```
 
 **Disclaimer:** tests are not truely unit tests, just try to use the library to
@@ -32,7 +30,7 @@ Those are useful to quickly show result of bindings use.
 ### All tests
 
 ```
-meson test --test-args=<archive-path>
+meson test -C build --test-args=<archive-full-path>
 ```
 
 **Notice:** don't forget to:
@@ -44,7 +42,7 @@ meson test --test-args=<archive-path>
 ### Test and print output of a specific test
 
 ```
-meson test --test-args=<archive-path> prog-c -v
+meson test -C build --test-args=<archive-full-path> prog-c -v
 ```
 
 **Notice:** same requirements as previous notice.

@@ -15,7 +15,7 @@ includedir = join_paths(prefix, get_option('includedir'))
 
 glib = dependency('glib-2.0')
 gobject = dependency('gobject-2.0')
-zim = dependency('libzim', version : '>=3.0.0')
+zim = dependency('libzim', version : '>=7.0.0')
 
 gnome = import('gnome')
 

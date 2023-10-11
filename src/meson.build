@@ -1,21 +1,27 @@
 public_headers = [
-    'file.h',
-    'article.h',
-    'misc.h',
-    'fileheader.h',
-    'search.h',
-    'search-iterator.h',
-    'file-iterator.h'
+    'archive.h',
+    'entry.h',
+    'item.h',
+    # 'file.h',
+    # 'article.h',
+    # 'misc.h',
+    # 'fileheader.h',
+    # 'search.h',
+    # 'search-iterator.h',
+    # 'file-iterator.h'
 ]
 
 sources = [
-    'file.cpp',
-    'article.cpp',
-    'misc.cpp',
-    'fileheader.cpp',
-    'search.cpp',
-    'search-iterator.cpp',
-    'file-iterator.cpp'
+    'archive.cpp',
+    'entry.cpp',
+    'item.cpp',
+    # 'file.cpp',
+    # 'article.cpp',
+    # 'misc.cpp',
+    # 'fileheader.cpp',
+    # 'search.cpp',
+    # 'search-iterator.cpp',
+    # 'file-iterator.cpp'
 ]
 
 libzim = shared_library(

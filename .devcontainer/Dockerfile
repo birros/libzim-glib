@@ -53,10 +53,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     rm -rf zstd*
 
 RUN curl \
-        -L https://github.com/openzim/libzim/archive/6.2.2.tar.gz \
-        -o libzim-6.2.2.tar.gz && \
-    tar -xvf libzim-6.2.2.tar.gz && \
-    cd libzim-6.2.2 && \
+        -L https://github.com/openzim/libzim/archive/7.2.2.tar.gz \
+        -o libzim-7.2.2.tar.gz && \
+    tar -xvf libzim-7.2.2.tar.gz && \
+    cd libzim-7.2.2 && \
         meson setup \
             --prefix=/usr \
             --libdir=lib \

@@ -109,6 +109,10 @@ if enable_tests
     libzim_private_inc = include_directories('.')
     libzim_private_dep = declare_dependency(
         include_directories: libzim_private_inc,
+        link_with : libzim_private
+    )
+    libzim_private_vapi_dep = declare_dependency(
+        include_directories: libzim_private_inc,
         link_with : libzim_private,
         sources: zim_vapi
     )

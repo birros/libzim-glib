@@ -17,7 +17,7 @@ prog_vala = executable(
     dependencies : [
         glib,
         gobject,
-        libzim_private_dep
+        libzim_private_vapi_dep
     ]
 )
 test('prog-vala', prog_vala)

@@ -4,10 +4,6 @@
 
 This bindings was primarly done to permit [libzim] usage for [WebArchives].
 
-## Dependencies and environnement
-
-See flatpak manifest and adapt your system in consequence.
-
 ## Building
 
 ```

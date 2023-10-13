@@ -5,6 +5,8 @@
 #include "archive.h"
 #include "entry.h"
 #include "entry-private.h"
+#include "item.h"
+#include "item-private.h"
 // #include <zim/file.h>
 // #include <zim/fileiterator.h>
 // #include <zim/article.h>
@@ -255,6 +257,34 @@ zim_archive_get_random_entry (ZimArchive *archive)
         return entry;
     } catch (zim::EntryNotFound &e) {
         std::wcout << "WARNING: zim_archive_get_random_entry(): " << e.what () << std::endl;
+
+        return NULL;
+    }
+}
+
+/**
+ * zim_archive_get_illustration_item:
+ * @archive: A #ZimArchive
+ * @size: size of the illustration
+ *
+ * Get the illustration.
+ *
+ * Returns: (transfer full): a illustration #ZimItem
+ */
+ZimItem *
+zim_archive_get_illustration_item (ZimArchive *archive, unsigned int size)
+{
+    ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE (archive);
+
+    try {
+        zim::Item item_cpp = priv->file->getIllustrationItem (size);
+
+        ZimItem *item = zim_item_new ();
+        zim_item_set_internal_item (item, archive, item_cpp);
+
+        return item;
+    } catch (zim::EntryNotFound &e) {
+        std::wcout << "WARNING: zim_archive_get_illustration_item(" << size << "): " << e.what () << std::endl;
 
         return NULL;
     }

@@ -6,7 +6,6 @@
 // #include "archiveheader.h"
 // #include "article.h"
 // #include "archive-iterator.h"
-typedef struct _ZimArchiveIterator      ZimArchiveIterator;
 
 G_BEGIN_DECLS
 

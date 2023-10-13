@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "archive.h"
+#include "suggestion-searcher.h"
 // #include "file.h"
 // #include "fileheader.h"
 // #include "article.h"
@@ -92,6 +93,26 @@ main (int argc, char *argv[])
         i++;
     }
 
+    // zim search suggestion mode (10 first results)
+    printf ("==ZIM SEARCH SUGGESTION MODE (10 first results)==\n");
+
+    ZimSuggestionSearcher *suggestion_searcher = zim_suggestion_searcher_new (zim_archive);
+    //g_object_unref (suggestion_searcher);
+
+    ZimSuggestionSearch *suggestion_search = zim_suggestion_searcher_suggest(suggestion_searcher, "paris");
+    //g_object_unref (suggestion_search);
+
+    ZimSuggestionResultIterator *results_iterator = zim_suggestion_search_get_results(suggestion_search, 0, 10);
+
+    do {
+        ZimEntry *entry = zim_suggestion_result_iterator_get_entry(results_iterator);
+        if (entry != NULL) {
+            const char *title = zim_entry_get_title(entry);
+            const char *path = zim_entry_get_path(entry);
+            printf (STYLE_BOLD "title: " STYLE_NO_BOLD "%s\n", title);
+            printf (STYLE_BOLD "\tpath: " STYLE_NO_BOLD "%s\n", path);
+        }
+    } while (zim_suggestion_result_iterator_next(results_iterator));
 
     // // main_page
     // printf ("==MAIN PAGE==\n");

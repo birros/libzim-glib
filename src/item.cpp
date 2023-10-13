@@ -123,7 +123,8 @@ zim_item_get_mimetype (ZimItem *item)
         std::string mime_type = priv->item.getMimetype ();
         return g_strdup (mime_type.c_str ());
     } catch (std::runtime_error const& e) {
-        std::wcout << "WARNING : " << e.what () << std::endl;
+        std::wcout << "WARNING: zim_item_get_mimetype(): " << e.what () << std::endl;
+
         std::string mime_type = "";
         return g_strdup (mime_type.c_str ());
     }

@@ -48,6 +48,9 @@ main (int argc, char *argv[])
     const char * uuid = zim_archive_get_uuid(zim_archive);
     printf("uuid: %s\n", uuid);
 
+    const char * counter = zim_archive_get_metadata(zim_archive, "Counter");
+    printf("counter: %s\n", counter);
+
     gboolean hasMainEntry = zim_archive_has_main_entry(zim_archive);
     printf("hasMainEntry: %d\n", hasMainEntry);
 

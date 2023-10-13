@@ -1,5 +1,7 @@
 #include <sstream>
+#include <iostream>
 #include <zim/archive.h>
+#include <zim/error.h>
 #include "archive.h"
 #include "entry.h"
 #include "entry-private.h"
@@ -170,12 +172,18 @@ zim_archive_get_main_entry (ZimArchive* archive)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE (archive);
 
-    ZimEntry *entry = zim_entry_new ();
+    try {
+        zim::Entry entry_cpp = priv->file->getMainEntry ();
 
-    zim::Entry entry_cpp = priv->file->getMainEntry ();
-    zim_entry_set_internal_entry (entry, archive, entry_cpp);
+        ZimEntry *entry = zim_entry_new ();
+        zim_entry_set_internal_entry (entry, archive, entry_cpp);
 
-    return entry;
+        return entry;
+    } catch (zim::EntryNotFound &e) {
+        std::wcout << "WARNING: zim_archive_get_main_entry(): " << e.what () << std::endl;
+
+        return NULL;
+    }
 }
 
 /**
@@ -195,6 +203,61 @@ zim_archive_get_uuid (ZimArchive* archive)
     s << priv->file->getUuid();
     std::string uuid = s.str();
     return g_strdup (uuid.c_str ());
+}
+
+/**
+ * zim_archive_get_entry_by_path:
+ * @archive: A #ZimArchive
+ * @path: path of an article
+ *
+ * Get the article at the given path.
+ *
+ * Returns: (transfer full): the #ZimEntry at the given path
+ */
+ZimEntry *
+zim_archive_get_entry_by_path (ZimArchive *archive, const char * path)
+{
+    ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE (archive);
+
+    try {
+        zim::Entry entry_cpp = priv->file->getEntryByPath (path);
+
+        ZimEntry *entry = zim_entry_new ();
+        zim_entry_set_internal_entry (entry, archive, entry_cpp);
+
+        return entry;
+    } catch (zim::EntryNotFound &e) {
+        std::wcout << "WARNING: zim_archive_get_entry_by_path(" << path << "): " << e.what () << std::endl;
+
+        return NULL;
+    }
+}
+
+/**
+ * zim_archive_get_random_entry:
+ * @archive: A #ZimArchive
+ *
+ * Get a random entry.
+ *
+ * Returns: (transfer full): a random #ZimEntry
+ */
+ZimEntry *
+zim_archive_get_random_entry (ZimArchive *archive)
+{
+    ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE (archive);
+
+    try {
+        zim::Entry entry_cpp = priv->file->getRandomEntry ();
+
+        ZimEntry *entry = zim_entry_new ();
+        zim_entry_set_internal_entry (entry, archive, entry_cpp);
+
+        return entry;
+    } catch (zim::EntryNotFound &e) {
+        std::wcout << "WARNING: zim_archive_get_random_entry(): " << e.what () << std::endl;
+
+        return NULL;
+    }
 }
 
 // /**
@@ -279,7 +342,7 @@ zim_archive_get_filesize (ZimArchive *archive)
 }
 
 /**
- * zim_archive_get_article_count:
+ * zim_archive_get_all_entry_count:
  * @archive: A #ZimArchive
  *
  * Get the global count of entries.
@@ -287,9 +350,54 @@ zim_archive_get_filesize (ZimArchive *archive)
  * Returns: the global count of entries
  */
 unsigned int
+zim_archive_get_all_entry_count (ZimArchive *archive)
+{
+    ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE (archive);
+    unsigned int count = priv->file->getAllEntryCount ();
+    return count;
+}
+
+/**
+ * zim_archive_get_article_count:
+ * @archive: A #ZimArchive
+ *
+ * Get the count of articles.
+ *
+ * Returns: the count of articles
+ */
+unsigned int
 zim_archive_get_article_count (ZimArchive *archive)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE (archive);
     unsigned int count = priv->file->getArticleCount ();
     return count;
+}
+
+/**
+ * zim_archive_get_metadata:
+ * @archive: A #ZimArchive
+ * @name: name of metadata
+ *
+ * Get the metadata associated to the name.
+ *
+ * Returns: the metadata associated to the name
+ */
+const char *
+zim_archive_get_metadata (ZimArchive* archive, const char * name)
+{
+    ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE (archive);
+
+    try {
+        std::string metadata_cpp = priv->file->getMetadata (name);
+
+        std::ostringstream s;
+        s << metadata_cpp;
+        std::string metadata = s.str();
+
+        return g_strdup (metadata.c_str ());
+    } catch (zim::EntryNotFound &e) {
+        std::wcout << "WARNING: zim_archive_get_metadata(" << name << "): " << e.what () << std::endl;
+
+        return NULL;
+    }
 }

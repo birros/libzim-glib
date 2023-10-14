@@ -111,9 +111,7 @@ zim_archive_get_main_entry(ZimArchive *archive)
     try
     {
         zim::Entry entry_cpp = priv->file->getMainEntry();
-
-        ZimEntry *entry = zim_entry_new();
-        zim_entry_set_internal_entry(entry, archive, entry_cpp);
+        ZimEntry *entry = zim_entry_new(archive, entry_cpp);
 
         return entry;
     }
@@ -161,9 +159,7 @@ zim_archive_get_entry_by_path(ZimArchive *archive, const char *path)
     try
     {
         zim::Entry entry_cpp = priv->file->getEntryByPath(path);
-
-        ZimEntry *entry = zim_entry_new();
-        zim_entry_set_internal_entry(entry, archive, entry_cpp);
+        ZimEntry *entry = zim_entry_new(archive, entry_cpp);
 
         return entry;
     }
@@ -191,9 +187,7 @@ zim_archive_get_random_entry(ZimArchive *archive)
     try
     {
         zim::Entry entry_cpp = priv->file->getRandomEntry();
-
-        ZimEntry *entry = zim_entry_new();
-        zim_entry_set_internal_entry(entry, archive, entry_cpp);
+        ZimEntry *entry = zim_entry_new(archive, entry_cpp);
 
         return entry;
     }
@@ -222,9 +216,7 @@ zim_archive_get_illustration_item(ZimArchive *archive, unsigned int size)
     try
     {
         zim::Item item_cpp = priv->file->getIllustrationItem(size);
-
-        ZimItem *item = zim_item_new();
-        zim_item_set_internal_item(item, archive, item_cpp);
+        ZimItem *item = zim_item_new(archive, item_cpp);
 
         return item;
     }

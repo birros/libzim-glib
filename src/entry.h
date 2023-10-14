@@ -33,7 +33,6 @@ struct _ZimEntryClass
 };
 
 GType zim_entry_get_type(void);
-ZimEntry *zim_entry_new(void);
 const char *zim_entry_get_title(ZimEntry *entry);
 const char *zim_entry_get_path(ZimEntry *entry);
 ZimItem *zim_entry_get_item(ZimEntry *entry, gboolean follow);

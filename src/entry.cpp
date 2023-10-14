@@ -44,30 +44,15 @@ zim_entry_init(ZimEntry *object)
 {
 }
 
-void zim_entry_set_internal_entry(ZimEntry *entry, ZimArchive *zim_archive, const zim::Entry entry_cpp)
+ZimEntry *zim_entry_new(ZimArchive *zim_archive, const zim::Entry entry_cpp)
 {
+    ZimEntry *entry = (ZimEntry *)g_object_new(ZIM_TYPE_ENTRY, NULL);
     ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE(entry);
 
     priv->zim_archive = zim_archive;
     g_object_ref(zim_archive);
 
     priv->entry = entry_cpp;
-}
-
-/**
- * zim_entry_new:
- *
- * Allocates a new #ZimEntry.
- *
- * Returns: (transfer full): the newly created #ZimEntry instance
- */
-ZimEntry *
-zim_entry_new(void)
-{
-    ZimEntry *entry = (ZimEntry *)g_object_new(ZIM_TYPE_ENTRY, NULL);
-
-    // ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE (entry);
-    // priv->entry = zim::Entry ();
 
     return entry;
 }
@@ -118,10 +103,8 @@ zim_entry_get_item(ZimEntry *entry, gboolean follow)
 {
     ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE(entry);
 
-    ZimItem *item = zim_item_new();
-
     zim::Item item_cpp = priv->entry.getItem(follow);
-    zim_item_set_internal_item(item, priv->zim_archive, item_cpp);
+    ZimItem *item = zim_item_new(priv->zim_archive, item_cpp);
 
     return item;
 }

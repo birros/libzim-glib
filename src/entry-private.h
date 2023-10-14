@@ -5,6 +5,6 @@
 #include "archive.h"
 #include "entry.h"
 
-void zim_entry_set_internal_entry(ZimEntry *entry, ZimArchive *zim_archive, const zim::Entry entry_cpp);
+ZimEntry *zim_entry_new(ZimArchive *zim_archive, const zim::Entry entry_cpp);
 
 #endif

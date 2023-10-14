@@ -43,30 +43,15 @@ zim_item_init(ZimItem *object)
 {
 }
 
-void zim_item_set_internal_item(ZimItem *item, ZimArchive *zim_archive, const zim::Item item_cpp)
+ZimItem *zim_item_new(ZimArchive *zim_archive, const zim::Item item_cpp)
 {
+    ZimItem *item = (ZimItem *)g_object_new(ZIM_TYPE_ITEM, NULL);
     ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE(item);
 
     priv->zim_archive = zim_archive;
     g_object_ref(zim_archive);
 
     priv->item = item_cpp;
-}
-
-/**
- * zim_item_new:
- *
- * Allocates a new #ZimItem.
- *
- * Returns: (transfer full): the newly created #ZimItem instance
- */
-ZimItem *
-zim_item_new(void)
-{
-    ZimItem *item = (ZimItem *)g_object_new(ZIM_TYPE_ITEM, NULL);
-
-    // ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
-    // priv->item = zim::Item ();
 
     return item;
 }

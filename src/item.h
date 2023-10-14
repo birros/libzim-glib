@@ -32,7 +32,6 @@ struct _ZimItemClass
 };
 
 GType zim_item_get_type(void);
-ZimItem *zim_item_new(void);
 const char *zim_item_get_title(ZimItem *item);
 const char *zim_item_get_path(ZimItem *item);
 const char *zim_item_get_mimetype(ZimItem *item);

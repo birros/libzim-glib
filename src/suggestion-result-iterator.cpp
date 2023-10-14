@@ -86,9 +86,7 @@ zim_suggestion_result_iterator_get_entry(ZimSuggestionResultIterator *suggestion
     try
     {
         zim::Entry entry_cpp = priv->current.getEntry();
-
-        ZimEntry *entry = zim_entry_new();
-        zim_entry_set_internal_entry(entry, priv->archive, entry_cpp);
+        ZimEntry *entry = zim_entry_new(priv->archive, entry_cpp);
 
         return entry;
     }

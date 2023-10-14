@@ -5,11 +5,11 @@
 #include "suggestion-result-iterator.h"
 
 /**
- * SECTION: zim-suggestion_result-iterator
+ * SECTION: zim-suggestion-result-iterator
  * @Title: ZimSuggestionResultIterator
  * @short_description: A zim suggestion_result_iterator
  *
- * #ZimSuggestionResultIterator represent a result of a #ZimSuggestionResult class.
+ * #ZimSuggestionResultIterator represent a zim::SuggestionResultSet.
  */
 
 #define ZIM_SUGGESTION_RESULT_ITERATOR_GET_PRIVATE(obj) \
@@ -72,12 +72,12 @@ zim_suggestion_result_iterator_new(ZimArchive *archive, ZimSuggestionSearch *sug
 
 /**
  * zim_suggestion_result_iterator_get_entry:
- * @suggestion_result_iterator: A #ZimSuggestionResultIterator
+ * @suggestion_result_iterator: a #ZimSuggestionResultIterator
  * @error: a #GError object
  *
- * Get the url of the article.
+ * Get the current #ZimEntry.
  *
- * Returns: (transfer full): the url of the article
+ * Returns: (transfer full): the current #ZimEntry
  */
 ZimEntry *
 zim_suggestion_result_iterator_get_entry(ZimSuggestionResultIterator *suggestion_result_iterator, GError **error)
@@ -102,7 +102,7 @@ zim_suggestion_result_iterator_get_entry(ZimSuggestionResultIterator *suggestion
  * zim_suggestion_result_iterator_next:
  * @suggestion_result_iterator: A #ZimSuggestionResultIterator
  *
- * Go to the next result of a suggestion_result.
+ * Go to the next result of a #ZimSuggestionResultIterator.
  *
  * Returns: TRUE if the next result exist, FALSE otherwise
  */

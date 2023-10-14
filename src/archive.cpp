@@ -9,7 +9,7 @@
  * @Title: ZimArchive
  * @short_description: A zim archive
  *
- * #ZimArchive class is the root class to access to the articles of the zim archive.
+ * #ZimArchive represent a zim::Archive.
  */
 
 #define ZIM_ARCHIVE_GET_PRIVATE(obj) \
@@ -53,12 +53,12 @@ zim_archive_get_internal_archive(ZimArchive *archive)
 
 /**
  * zim_archive_new:
- * @path: the path to the zim file
+ * @path: the path to the #ZimArchive
  * @error: a #GError object
  *
- * Allocates a new #ZimArchive.
+ * Instantiate a new #ZimArchive.
  *
- * Returns: (transfer full): the newly created #ZimArchive instance
+ * Returns: (transfer full): a #ZimArchive instance
  */
 ZimArchive *
 zim_archive_new(const char *path, GError **error)
@@ -80,11 +80,11 @@ zim_archive_new(const char *path, GError **error)
 
 /**
  * zim_archive_has_main_entry:
- * @archive: A #ZimArchive
+ * @archive: a #ZimArchive
  *
- * Check if the zim file has a main page.
+ * Check if the #ZimArchive has a main #ZimEntry.
  *
- * Returns: TRUE if the zim file hash main page, FALSE otherwise
+ * Returns: TRUE if the #ZimArchive hash main entry, FALSE otherwise
  */
 gboolean
 zim_archive_has_main_entry(ZimArchive *archive)
@@ -95,12 +95,12 @@ zim_archive_has_main_entry(ZimArchive *archive)
 
 /**
  * zim_archive_get_main_entry:
- * @archive: A #ZimArchive
+ * @archive: a #ZimArchive
  * @error: a #GError object
  *
- * Get the index of the main page.
+ * Get the main #ZimEntry.
  *
- * Returns: (transfer full): the index of the main page
+ * Returns: (transfer full): the main #ZimEntry
  */
 ZimEntry *
 zim_archive_get_main_entry(ZimArchive *archive, GError **error)
@@ -123,11 +123,11 @@ zim_archive_get_main_entry(ZimArchive *archive, GError **error)
 
 /**
  * zim_archive_get_uuid:
- * @archive: A #ZimArchive
+ * @archive: a #ZimArchive
  *
- * Get the uuid of the zim archive.
+ * Get the uuid of the #ZimArchive.
  *
- * Returns: the uuid of the zim archive
+ * Returns: the uuid of the #ZimArchive
  */
 const char *
 zim_archive_get_uuid(ZimArchive *archive)
@@ -142,11 +142,11 @@ zim_archive_get_uuid(ZimArchive *archive)
 
 /**
  * zim_archive_get_entry_by_path:
- * @archive: A #ZimArchive
- * @path: path of an article
+ * @archive: a #ZimArchive
+ * @path: path of an #ZimEntry
  * @error: a #GError object
  *
- * Get the article at the given path.
+ * Get the #ZimEntry at the given path.
  *
  * Returns: (transfer full): the #ZimEntry at the given path
  */
@@ -171,10 +171,10 @@ zim_archive_get_entry_by_path(ZimArchive *archive, const char *path, GError **er
 
 /**
  * zim_archive_get_random_entry:
- * @archive: A #ZimArchive
+ * @archive: a #ZimArchive
  * @error: a #GError object
  *
- * Get a random entry.
+ * Get a random #ZimEntry.
  *
  * Returns: (transfer full): a random #ZimEntry
  */
@@ -199,13 +199,13 @@ zim_archive_get_random_entry(ZimArchive *archive, GError **error)
 
 /**
  * zim_archive_get_illustration_item:
- * @archive: A #ZimArchive
+ * @archive: a #ZimArchive
  * @size: size of the illustration
  * @error: a #GError object
  *
  * Get the illustration.
  *
- * Returns: (transfer full): a illustration #ZimItem
+ * Returns: (transfer full): a illustration as a #ZimItem
  */
 ZimItem *
 zim_archive_get_illustration_item(ZimArchive *archive, unsigned int size, GError **error)
@@ -228,11 +228,11 @@ zim_archive_get_illustration_item(ZimArchive *archive, unsigned int size, GError
 
 /**
  * zim_archive_get_filesize:
- * @archive: A #ZimArchive
+ * @archive: a #ZimArchive
  *
- * Get file size of the archive.
+ * Get file size of the #ZimArchive.
  *
- * Returns: the size
+ * Returns: the size of the #ZimArchive
  */
 unsigned long
 zim_archive_get_filesize(ZimArchive *archive)
@@ -244,7 +244,7 @@ zim_archive_get_filesize(ZimArchive *archive)
 
 /**
  * zim_archive_get_all_entry_count:
- * @archive: A #ZimArchive
+ * @archive: a #ZimArchive
  *
  * Get the global count of entries.
  *
@@ -260,7 +260,7 @@ zim_archive_get_all_entry_count(ZimArchive *archive)
 
 /**
  * zim_archive_get_article_count:
- * @archive: A #ZimArchive
+ * @archive: a #ZimArchive
  *
  * Get the count of articles.
  *

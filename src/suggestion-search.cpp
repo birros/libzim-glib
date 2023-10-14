@@ -5,11 +5,11 @@
 #include "suggestion-result-iterator-private.h"
 
 /**
- * SECTION: zim-suggestion_search
+ * SECTION: zim-suggestion-search
  * @Title: ZimSuggestionSearch
  * @short_description: A zim suggestion_search
  *
- * #ZimSuggestionSearch represent a suggestion_search for a zim file.
+ * #ZimSuggestionSearch represent a zim::SuggestionSearch.
  */
 
 #define ZIM_SUGGESTION_SEARCH_GET_PRIVATE(obj) \
@@ -67,7 +67,7 @@ ZimSuggestionSearch *zim_suggestion_search_new(ZimArchive *archive, ZimSuggestio
  * @start: start position
  * @max_results: max results
  *
- * Allocates a new #ZimSuggestionSearch.
+ * Get results of a #ZimSuggestionSearch.
  *
  * Returns: (transfer full): a #ZimSuggestionResultIterator instance
  */

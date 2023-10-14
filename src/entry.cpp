@@ -8,7 +8,7 @@
  * @Title: ZimEntry
  * @short_description: A zim entry
  *
- * #ZimEntry represent an entry stored in a zim file.
+ * #ZimEntry represent a zim::Entry.
  */
 
 #define ZIM_ENTRY_GET_PRIVATE(obj) \
@@ -59,11 +59,11 @@ ZimEntry *zim_entry_new(ZimArchive *archive, const zim::Entry entry_cpp)
 
 /**
  * zim_entry_get_title:
- * @entry: A #ZimEntry
+ * @entry: a #ZimEntry
  *
- * Get the title of the entry.
+ * Get the title of the #ZimEntry.
  *
- * Returns: (transfer full): the title of the entry
+ * Returns: (transfer full): the title of the #ZimEntry
  */
 const char *
 zim_entry_get_title(ZimEntry *entry)
@@ -75,11 +75,11 @@ zim_entry_get_title(ZimEntry *entry)
 
 /**
  * zim_entry_get_path:
- * @entry: A #ZimEntry
+ * @entry: a #ZimEntry
  *
- * Get the path of the entry.
+ * Get the path of the #ZimEntry.
  *
- * Returns: (transfer full): the path of the entry
+ * Returns: (transfer full): the path of the #ZimEntry
  */
 const char *
 zim_entry_get_path(ZimEntry *entry)
@@ -91,12 +91,12 @@ zim_entry_get_path(ZimEntry *entry)
 
 /**
  * zim_entry_get_item:
- * @entry: A #ZimEntry
- * @follow: A #gboolean
+ * @entry: a #ZimEntry
+ * @follow: a #gboolean
  *
- * Get the index of the main page.
+ * Get the #ZimItem of the #ZimEntry.
  *
- * Returns: (transfer full): the index of the main page
+ * Returns: (transfer full): the #ZimItem of the #ZimEntry
  */
 ZimItem *
 zim_entry_get_item(ZimEntry *entry, gboolean follow)

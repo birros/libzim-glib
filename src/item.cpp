@@ -7,7 +7,7 @@
  * @Title: ZimItem
  * @short_description: A zim item
  *
- * #ZimItem represent an item stored in a zim file.
+ * #ZimItem represent a zim::Item.
  */
 
 #define ZIM_ITEM_GET_PRIVATE(obj) \
@@ -58,11 +58,11 @@ ZimItem *zim_item_new(ZimArchive *archive, const zim::Item item_cpp)
 
 /**
  * zim_item_get_title:
- * @item: A #ZimItem
+ * @item: a #ZimItem
  *
- * Get the title of the item.
+ * Get the title of the #ZimItem.
  *
- * Returns: (transfer full): the title of the item
+ * Returns: (transfer full): the title of the #ZimItem
  */
 const char *
 zim_item_get_title(ZimItem *item)
@@ -74,11 +74,11 @@ zim_item_get_title(ZimItem *item)
 
 /**
  * zim_item_get_path:
- * @item: A #ZimItem
+ * @item: a #ZimItem
  *
- * Get the path of the item.
+ * Get the path of the #ZimItem.
  *
- * Returns: (transfer full): the path of the item
+ * Returns: (transfer full): the path of the #ZimItem
  */
 const char *
 zim_item_get_path(ZimItem *item)
@@ -90,11 +90,11 @@ zim_item_get_path(ZimItem *item)
 
 /**
  * zim_item_get_mimetype:
- * @item: A #ZimItem
+ * @item: a #ZimItem
  *
- * Get the mime type of the item.
+ * Get the mime type of the #ZimItem.
  *
- * Returns: (transfer full): the mime type of the item
+ * Returns: (transfer full): the mime type of the #ZimItem
  */
 const char *
 zim_item_get_mimetype(ZimItem *item)
@@ -108,12 +108,12 @@ zim_item_get_mimetype(ZimItem *item)
 
 /**
  * zim_item_get_data:
- * @item: A #ZimItem
+ * @item: a #ZimItem
  * @size: (out) (optional): length of data
  *
- * Get the data of the item.
+ * Get the data of the #ZimItem.
  *
- * Returns: (array length=size) (element-type guint8) (transfer full): data of the item
+ * Returns: (array length=size) (element-type guint8) (transfer full): data of the #ZimItem
  */
 const char *
 zim_item_get_data(ZimItem *item, gsize *size)
@@ -133,11 +133,11 @@ zim_item_get_data(ZimItem *item, gsize *size)
 
 /**
  * zim_item_get_size:
- * @item: A #ZimItem
+ * @item: a #ZimItem
  *
- * Get the data size of the item.
+ * Get the data size of the #ZimItem.
  *
- * Returns: the data size of the item
+ * Returns: the data size of the #ZimItem
  */
 gsize zim_item_get_size(ZimItem *item)
 {

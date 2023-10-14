@@ -5,11 +5,11 @@
 #include "suggestion-searcher.h"
 
 /**
- * SECTION: zim-suggestion_searcher
+ * SECTION: zim-suggestion-searcher
  * @Title: ZimSuggestionSearcher
  * @short_description: A zim suggestion_searcher
  *
- * #ZimSuggestionSearcher represent a suggestion_searcher for a zim file.
+ * #ZimSuggestionSearcher represent a zim::SuggestionSearcher.
  */
 
 #define ZIM_SUGGESTION_SEARCHER_GET_PRIVATE(obj) \
@@ -49,9 +49,9 @@ zim_suggestion_searcher_init(ZimSuggestionSearcher *object)
  * zim_suggestion_searcher_new:
  * @archive: a #ZimArchive
  *
- * Allocates a new #ZimSuggestionSearcher.
+ * Instanciate a new #ZimSuggestionSearcher.
  *
- * Returns: (transfer full): the newly created #ZimSuggestionSearcher instance
+ * Returns: (transfer full): a new #ZimSuggestionSearcher instance
  */
 ZimSuggestionSearcher *
 zim_suggestion_searcher_new(ZimArchive *archive)
@@ -74,7 +74,7 @@ zim_suggestion_searcher_new(ZimArchive *archive)
  * @suggestion_searcher: a #ZimSuggestionSearcher
  * @query: a query string
  *
- * Create a Search.
+ * Search suggestions.
  *
  * Returns: (transfer full): a #ZimSuggestionSearch instance
  */

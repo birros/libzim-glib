@@ -18,8 +18,8 @@
 typedef struct _ZimSuggestionSearchPrivate ZimSuggestionSearchPrivate;
 struct _ZimSuggestionSearchPrivate
 {
-    ZimArchive *zim_archive;
-    ZimSuggestionSearcher *zim_suggestion_searcher;
+    ZimArchive *archive;
+    ZimSuggestionSearcher *suggestion_searcher;
     zim::SuggestionSearch *suggestion_search;
 };
 
@@ -30,8 +30,8 @@ zim_suggestion_search_finalize(GObject *gobject)
 {
     ZimSuggestionSearchPrivate *priv = ZIM_SUGGESTION_SEARCH_GET_PRIVATE(gobject);
 
-    g_object_unref(priv->zim_archive);
-    g_object_unref(priv->zim_suggestion_searcher);
+    g_object_unref(priv->archive);
+    g_object_unref(priv->suggestion_searcher);
 
     G_OBJECT_CLASS(zim_suggestion_search_parent_class)->dispose(gobject);
 }
@@ -52,12 +52,12 @@ ZimSuggestionSearch *zim_suggestion_search_new(ZimArchive *archive, ZimSuggestio
     ZimSuggestionSearch *suggestion_search = (ZimSuggestionSearch *)g_object_new(ZIM_TYPE_SUGGESTION_SEARCH, NULL);
     ZimSuggestionSearchPrivate *priv = ZIM_SUGGESTION_SEARCH_GET_PRIVATE(suggestion_search);
 
-    priv->zim_archive = archive;
-    priv->zim_suggestion_searcher = suggestion_searcher;
+    priv->archive = archive;
+    priv->suggestion_searcher = suggestion_searcher;
     priv->suggestion_search = search_cpp;
 
-    g_object_ref(priv->zim_archive);
-    g_object_ref(priv->zim_suggestion_searcher);
+    g_object_ref(priv->archive);
+    g_object_ref(priv->suggestion_searcher);
 
     return suggestion_search;
 }
@@ -81,5 +81,5 @@ zim_suggestion_search_get_results(ZimSuggestionSearch *suggestion_search, int st
     zim::SuggestionResultSet::iterator begin = results.begin();
     zim::SuggestionResultSet::iterator end = results.end();
 
-    return zim_suggestion_result_iterator_new(priv->zim_archive, suggestion_search, begin, end);
+    return zim_suggestion_result_iterator_new(priv->archive, suggestion_search, begin, end);
 }

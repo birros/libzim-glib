@@ -34,7 +34,7 @@ struct _ZimArchiveClass
 };
 
 GType zim_archive_get_type(void) G_GNUC_CONST;
-ZimArchive *zim_archive_new(const char *zimpath, GError **error);
+ZimArchive *zim_archive_new(const char *path, GError **error);
 gboolean zim_archive_has_main_entry(ZimArchive *archive);
 ZimEntry *zim_archive_get_main_entry(ZimArchive *archive, GError **error);
 const char *zim_archive_get_uuid(ZimArchive *archive);

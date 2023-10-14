@@ -5,6 +5,6 @@
 #include "archive.h"
 #include "entry.h"
 
-ZimEntry *zim_entry_new(ZimArchive *zim_archive, const zim::Entry entry_cpp);
+ZimEntry *zim_entry_new(ZimArchive *archive, const zim::Entry entry_cpp);
 
 #endif

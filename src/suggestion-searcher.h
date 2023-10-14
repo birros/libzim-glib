@@ -34,8 +34,8 @@ struct _ZimSuggestionSearcherClass
 };
 
 GType zim_suggestion_searcher_get_type(void) G_GNUC_CONST;
-ZimSuggestionSearcher *zim_suggestion_searcher_new(ZimArchive *zim_archive);
-ZimSuggestionSearch *zim_suggestion_searcher_suggest(ZimSuggestionSearcher *zim_suggestion_searcher, const char *query);
+ZimSuggestionSearcher *zim_suggestion_searcher_new(ZimArchive *archive);
+ZimSuggestionSearch *zim_suggestion_searcher_suggest(ZimSuggestionSearcher *suggestion_searcher, const char *query);
 
 G_END_DECLS
 

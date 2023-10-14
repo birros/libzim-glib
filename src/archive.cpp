@@ -6,11 +6,11 @@
 #include "item-private.h"
 
 /**
- * SECTION: zim-file
+ * SECTION: zim-archive
  * @Title: ZimArchive
- * @short_description: A zim file
+ * @short_description: A zim archive
  *
- * #ZimArchive class is the root class to access to the articles of the zim file.
+ * #ZimArchive class is the root class to access to the articles of the zim archive.
  */
 
 #define ZIM_ARCHIVE_GET_PRIVATE(obj) \
@@ -19,7 +19,7 @@
 typedef struct _ZimArchivePrivate ZimArchivePrivate;
 struct _ZimArchivePrivate
 {
-    zim::Archive *file;
+    zim::Archive *archive;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ZimArchive, zim_archive, G_TYPE_OBJECT)
@@ -29,7 +29,7 @@ zim_archive_finalize(GObject *gobject)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(gobject);
 
-    delete priv->file;
+    delete priv->archive;
 
     G_OBJECT_CLASS(zim_archive_parent_class)->dispose(gobject);
 }
@@ -46,15 +46,15 @@ zim_archive_init(ZimArchive *object)
 }
 
 zim::Archive *
-zim_archive_get_internal_zim_archive(ZimArchive *zim_archive)
+zim_archive_get_internal_archive(ZimArchive *archive)
 {
-    ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(zim_archive);
-    return priv->file;
+    ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
+    return priv->archive;
 }
 
 /**
  * zim_archive_new:
- * @zimpath: the path to the zim file
+ * @path: the path to the zim file
  * @error: a #GError object
  *
  * Allocates a new #ZimArchive.
@@ -62,15 +62,15 @@ zim_archive_get_internal_zim_archive(ZimArchive *zim_archive)
  * Returns: (transfer full): the newly created #ZimArchive instance
  */
 ZimArchive *
-zim_archive_new(const char *zimpath, GError **error)
+zim_archive_new(const char *path, GError **error)
 {
-    ZimArchive *file = (ZimArchive *)g_object_new(ZIM_TYPE_ARCHIVE, NULL);
-    ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(file);
+    ZimArchive *archive = (ZimArchive *)g_object_new(ZIM_TYPE_ARCHIVE, NULL);
+    ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
 
     try
     {
-        priv->file = new zim::Archive(zimpath);
-        return file;
+        priv->archive = new zim::Archive(path);
+        return archive;
     }
     catch (const std::exception &err)
     {
@@ -91,7 +91,7 @@ gboolean
 zim_archive_has_main_entry(ZimArchive *archive)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
-    return priv->file->hasMainEntry();
+    return priv->archive->hasMainEntry();
 }
 
 /**
@@ -110,7 +110,7 @@ zim_archive_get_main_entry(ZimArchive *archive, GError **error)
 
     try
     {
-        zim::Entry entry_cpp = priv->file->getMainEntry();
+        zim::Entry entry_cpp = priv->archive->getMainEntry();
         ZimEntry *entry = zim_entry_new(archive, entry_cpp);
 
         return entry;
@@ -136,7 +136,7 @@ zim_archive_get_uuid(ZimArchive *archive)
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
 
     std::ostringstream s;
-    s << priv->file->getUuid();
+    s << priv->archive->getUuid();
     std::string uuid = s.str();
     return g_strdup(uuid.c_str());
 }
@@ -158,7 +158,7 @@ zim_archive_get_entry_by_path(ZimArchive *archive, const char *path, GError **er
 
     try
     {
-        zim::Entry entry_cpp = priv->file->getEntryByPath(path);
+        zim::Entry entry_cpp = priv->archive->getEntryByPath(path);
         ZimEntry *entry = zim_entry_new(archive, entry_cpp);
 
         return entry;
@@ -186,7 +186,7 @@ zim_archive_get_random_entry(ZimArchive *archive, GError **error)
 
     try
     {
-        zim::Entry entry_cpp = priv->file->getRandomEntry();
+        zim::Entry entry_cpp = priv->archive->getRandomEntry();
         ZimEntry *entry = zim_entry_new(archive, entry_cpp);
 
         return entry;
@@ -215,7 +215,7 @@ zim_archive_get_illustration_item(ZimArchive *archive, unsigned int size, GError
 
     try
     {
-        zim::Item item_cpp = priv->file->getIllustrationItem(size);
+        zim::Item item_cpp = priv->archive->getIllustrationItem(size);
         ZimItem *item = zim_item_new(archive, item_cpp);
 
         return item;
@@ -239,7 +239,7 @@ unsigned long
 zim_archive_get_filesize(ZimArchive *archive)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
-    unsigned long size = priv->file->getFilesize();
+    unsigned long size = priv->archive->getFilesize();
     return size;
 }
 
@@ -255,7 +255,7 @@ unsigned int
 zim_archive_get_all_entry_count(ZimArchive *archive)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
-    unsigned int count = priv->file->getAllEntryCount();
+    unsigned int count = priv->archive->getAllEntryCount();
     return count;
 }
 
@@ -271,7 +271,7 @@ unsigned int
 zim_archive_get_article_count(ZimArchive *archive)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
-    unsigned int count = priv->file->getArticleCount();
+    unsigned int count = priv->archive->getArticleCount();
     return count;
 }
 
@@ -292,7 +292,7 @@ zim_archive_get_metadata(ZimArchive *archive, const char *name, GError **error)
 
     try
     {
-        std::string metadata_cpp = priv->file->getMetadata(name);
+        std::string metadata_cpp = priv->archive->getMetadata(name);
 
         std::ostringstream s;
         s << metadata_cpp;

@@ -16,7 +16,7 @@
 typedef struct _ZimItemPrivate ZimItemPrivate;
 struct _ZimItemPrivate
 {
-    ZimArchive *zim_archive;
+    ZimArchive *archive;
     zim::Item item;
 };
 
@@ -27,7 +27,7 @@ zim_item_finalize(GObject *gobject)
 {
     ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE(gobject);
 
-    g_object_unref(priv->zim_archive);
+    g_object_unref(priv->archive);
 
     G_OBJECT_CLASS(zim_item_parent_class)->dispose(gobject);
 }
@@ -43,15 +43,15 @@ zim_item_init(ZimItem *object)
 {
 }
 
-ZimItem *zim_item_new(ZimArchive *zim_archive, const zim::Item item_cpp)
+ZimItem *zim_item_new(ZimArchive *archive, const zim::Item item_cpp)
 {
     ZimItem *item = (ZimItem *)g_object_new(ZIM_TYPE_ITEM, NULL);
     ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE(item);
 
-    priv->zim_archive = zim_archive;
-    g_object_ref(zim_archive);
-
+    priv->archive = archive;
     priv->item = item_cpp;
+
+    g_object_ref(priv->archive);
 
     return item;
 }

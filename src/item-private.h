@@ -5,6 +5,6 @@
 #include "archive.h"
 #include "item.h"
 
-ZimItem *zim_item_new(ZimArchive *zim_archive, const zim::Item item_cpp);
+ZimItem *zim_item_new(ZimArchive *archive, const zim::Item item_cpp);
 
 #endif

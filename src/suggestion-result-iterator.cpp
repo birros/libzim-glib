@@ -51,7 +51,7 @@ zim_suggestion_result_iterator_init(ZimSuggestionResultIterator *object)
 }
 
 ZimSuggestionResultIterator *
-zim_suggestion_result_iterator_new(ZimArchive *archive, ZimSuggestionSearch *suggestion_search, zim::SuggestionResultSet::iterator begin, zim::SuggestionResultSet::iterator end)
+zim_suggestion_result_iterator_new(ZimArchive *archive, ZimSuggestionSearch *suggestion_search, zim::SuggestionResultSet::iterator begin_cpp, zim::SuggestionResultSet::iterator end_cpp)
 {
     ZimSuggestionResultIterator *suggestion_result_iterator = (ZimSuggestionResultIterator *)g_object_new(ZIM_TYPE_SUGGESTION_RESULT_ITERATOR, NULL);
 
@@ -59,12 +59,13 @@ zim_suggestion_result_iterator_new(ZimArchive *archive, ZimSuggestionSearch *sug
 
     priv->archive = archive;
     priv->suggestion_search = suggestion_search;
+
+    priv->begin = begin_cpp;
+    priv->current = priv->begin;
+    priv->end = end_cpp;
+
     g_object_ref(priv->archive);
     g_object_ref(priv->suggestion_search);
-
-    priv->begin = begin;
-    priv->current = priv->begin;
-    priv->end = end;
 
     return suggestion_result_iterator;
 }

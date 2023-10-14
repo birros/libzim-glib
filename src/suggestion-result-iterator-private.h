@@ -6,6 +6,6 @@
 #include "suggestion-search.h"
 #include "suggestion-result-iterator.h"
 
-ZimSuggestionResultIterator *zim_suggestion_result_iterator_new(ZimArchive *archive, ZimSuggestionSearch *suggestion_search, zim::SuggestionResultSet::iterator begin, zim::SuggestionResultSet::iterator end);
+ZimSuggestionResultIterator *zim_suggestion_result_iterator_new(ZimArchive *archive, ZimSuggestionSearch *suggestion_search, zim::SuggestionResultSet::iterator begin_cpp, zim::SuggestionResultSet::iterator end_cpp);
 
 #endif

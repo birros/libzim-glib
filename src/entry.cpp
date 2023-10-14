@@ -17,7 +17,7 @@
 typedef struct _ZimEntryPrivate ZimEntryPrivate;
 struct _ZimEntryPrivate
 {
-    ZimArchive *zim_archive;
+    ZimArchive *archive;
     zim::Entry entry;
 };
 
@@ -28,7 +28,7 @@ zim_entry_finalize(GObject *gobject)
 {
     ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE(gobject);
 
-    g_object_unref(priv->zim_archive);
+    g_object_unref(priv->archive);
 
     G_OBJECT_CLASS(zim_entry_parent_class)->dispose(gobject);
 }
@@ -44,15 +44,15 @@ zim_entry_init(ZimEntry *object)
 {
 }
 
-ZimEntry *zim_entry_new(ZimArchive *zim_archive, const zim::Entry entry_cpp)
+ZimEntry *zim_entry_new(ZimArchive *archive, const zim::Entry entry_cpp)
 {
     ZimEntry *entry = (ZimEntry *)g_object_new(ZIM_TYPE_ENTRY, NULL);
     ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE(entry);
 
-    priv->zim_archive = zim_archive;
-    g_object_ref(zim_archive);
-
+    priv->archive = archive;
     priv->entry = entry_cpp;
+
+    g_object_ref(priv->archive);
 
     return entry;
 }
@@ -104,7 +104,7 @@ zim_entry_get_item(ZimEntry *entry, gboolean follow)
     ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE(entry);
 
     zim::Item item_cpp = priv->entry.getItem(follow);
-    ZimItem *item = zim_item_new(priv->zim_archive, item_cpp);
+    ZimItem *item = zim_item_new(priv->archive, item_cpp);
 
     return item;
 }

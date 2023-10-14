@@ -31,7 +31,7 @@ struct _ZimItemClass
     GObjectClass parent_class;
 };
 
-GType zim_item_get_type(void);
+GType zim_item_get_type(void) G_GNUC_CONST;
 const char *zim_item_get_title(ZimItem *item);
 const char *zim_item_get_path(ZimItem *item);
 const char *zim_item_get_mimetype(ZimItem *item);

@@ -32,7 +32,7 @@ struct _ZimEntryClass
     GObjectClass parent_class;
 };
 
-GType zim_entry_get_type(void);
+GType zim_entry_get_type(void) G_GNUC_CONST;
 const char *zim_entry_get_title(ZimEntry *entry);
 const char *zim_entry_get_path(ZimEntry *entry);
 ZimItem *zim_entry_get_item(ZimEntry *entry, gboolean follow);

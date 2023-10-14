@@ -25,18 +25,17 @@ prog_c = executable(
 )
 test('prog-c', prog_c, args : [testfile])
 
-# add_languages('vala')
-# prog_vala = executable(
-#     'prog-vala',
-#     'prog.vala',
-#     dependencies : [
-#         glib,
-#         gobject,
-#         libzim_private_vapi_dep
-#     ]
-# )
-# test('prog-vala', prog_vala)
-
+add_languages('vala')
+prog_vala = executable(
+    'prog-vala',
+    'prog.vala',
+    dependencies : [
+        glib,
+        gobject,
+        libzim_private_vapi_dep
+    ]
+)
+test('prog-vala', prog_vala, args : [testfile])
 
 # # ugly way to get LD_LIBRARY_PATH and GI_TYPELIB_PATH build environment variables
 # src_build_dir = join_paths(meson.build_root(), 'src')

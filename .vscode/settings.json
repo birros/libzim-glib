@@ -7,6 +7,10 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
+    "[vala]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "prince781.vala"
+    },
     "files.associations": {
         "iosfwd": "cpp",
         "iostream": "cpp",

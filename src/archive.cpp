@@ -1,4 +1,3 @@
-#include <sstream>
 #include <zim/archive.h>
 #include <zim/error.h>
 #include "archive.h"
@@ -135,9 +134,9 @@ zim_archive_get_uuid(ZimArchive *archive)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
 
-    std::ostringstream s;
-    s << priv->archive->getUuid();
-    std::string uuid = s.str();
+    zim::Uuid uuid_cpp = priv->archive->getUuid();
+    std::string uuid = static_cast<std::string>(uuid_cpp);
+
     return g_strdup(uuid.c_str());
 }
 
@@ -292,12 +291,7 @@ zim_archive_get_metadata(ZimArchive *archive, const char *name, GError **error)
 
     try
     {
-        std::string metadata_cpp = priv->archive->getMetadata(name);
-
-        std::ostringstream s;
-        s << metadata_cpp;
-        std::string metadata = s.str();
-
+        std::string metadata = priv->archive->getMetadata(name);
         return g_strdup(metadata.c_str());
     }
     catch (zim::EntryNotFound &err)

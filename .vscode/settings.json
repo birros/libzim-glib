@@ -63,6 +63,7 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "limits.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "suggestion-searcher.h": "c"
     }
 }

@@ -35,15 +35,9 @@ GType        zim_item_get_type (void);
 ZimItem * zim_item_new (void);
 const char * zim_item_get_title (ZimItem *item);
 const char * zim_item_get_path (ZimItem *item);
-// const char * zim_item_get_url (ZimItem *item);
 const char * zim_item_get_mimetype (ZimItem *item);
-// const char   zim_item_get_namespace (ZimItem *item);
 const char * zim_item_get_data (ZimItem *item, gsize *size);
 gsize        zim_item_get_size (ZimItem *item);
-// gsize        zim_item_get_offset (ZimItem *item);
-// gboolean     zim_item_good (ZimItem *item);
-// gboolean     zim_item_is_redirect (ZimItem *item);
-// ZimItem * zim_item_get_redirect_item (ZimItem *item);
 
 G_END_DECLS
 

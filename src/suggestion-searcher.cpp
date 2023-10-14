@@ -1,11 +1,8 @@
-#include <iostream>
-#include <memory.h>
 #include <zim/suggestion.h>
-#include "suggestion-searcher.h"
 #include "archive.h"
 #include "archive-private.h"
-#include "suggestion-search.h"
 #include "suggestion-search-private.h"
+#include "suggestion-searcher.h"
 
 /**
  * SECTION: zim-suggestion_searcher

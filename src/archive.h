@@ -3,9 +3,7 @@
 
 #include <glib-object.h>
 #include "entry.h"
-// #include "archiveheader.h"
-// #include "article.h"
-// #include "archive-iterator.h"
+#include "item.h"
 
 G_BEGIN_DECLS
 
@@ -43,9 +41,6 @@ const char *     zim_archive_get_uuid (ZimArchive *archive);
 ZimEntry *      zim_archive_get_entry_by_path (ZimArchive *archive, const char * path);
 ZimEntry *      zim_archive_get_random_entry (ZimArchive *archive);
 ZimItem *     zim_archive_get_illustration_item (ZimArchive *archive, unsigned int size);
-// ZimArticle *      zim_archive_get_article_by_index (ZimArchive *archive, unsigned int index);
-// ZimArticle *      zim_archive_get_article_by_namespace (ZimArchive *archive, const char namesp, const char *path);
-// ZimArchiveIterator * zim_archive_find_by_title (ZimArchive *archive, const char namesp, const char *title);
 unsigned long     zim_archive_get_filesize (ZimArchive *archive);
 unsigned int      zim_archive_get_all_entry_count (ZimArchive *archive);
 unsigned int      zim_archive_get_article_count (ZimArchive *archive);

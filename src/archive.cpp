@@ -1,22 +1,9 @@
 #include <sstream>
-#include <iostream>
 #include <zim/archive.h>
 #include <zim/error.h>
 #include "archive.h"
-#include "entry.h"
 #include "entry-private.h"
-#include "item.h"
 #include "item-private.h"
-// #include <zim/file.h>
-// #include <zim/fileiterator.h>
-// #include <zim/article.h>
-// #include "file.h"
-// #include "fileheader.h"
-// #include "fileheader-private.h"
-// #include "article.h"
-// #include "article-private.h"
-// #include "file-iterator.h"
-// #include "file-iterator-private.h"
 
 /**
  * SECTION: zim-file
@@ -92,59 +79,6 @@ zim_archive_new (const char *zimpath, GError **error)
 
     return file;
 }
-
-// /**
-//  * zim_archive_get_namespace_begin_offset:
-//  * @file: A #ZimArchive
-//  * @namesp: the namespace
-//  *
-//  * Get the offset of the beginning of the namespace.
-//  *
-//  * Returns: the offset of the namespace
-//  */
-// unsigned int
-// zim_archive_get_namespace_begin_offset (ZimArchive *file, char namesp)
-// {
-//     ZimArchivePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
-//     unsigned int index = priv->file->getNamespaceBeginOffset (namesp);
-//     return index;
-// }
-
-// /**
-//  * zim_archive_get_namespace_count:
-//  * @file: A #ZimArchive
-//  * @namesp: the namespace
-//  *
-//  * Get the count of entries in the namespace.
-//  *
-//  * Returns: the count of entries
-//  */
-// unsigned int
-// zim_archive_get_namespace_count (ZimArchive *file, char namesp)
-// {
-//     ZimArchivePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
-//     unsigned int count = priv->file->getNamespaceCount (namesp);
-//     return count;
-// }
-
-// /**
-//  * zim_archive_get_fileheader:
-//  * @file: A #ZimArchive
-//  *
-//  * Get the #ZimArchiveheader object of the zim file.
-//  *
-//  * Returns: (transfer full): the #ZimArchiveheader
-//  */
-// ZimArchiveheader *
-// zim_archive_get_fileheader (ZimArchive *file)
-// {
-//     ZimArchivePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
-
-//     ZimArchiveheader* fileheader = zim_archiveheader_new ();
-//     zim_archiveheader_set_internal_fileheader (fileheader, file, priv->file->getFileheader ());
-
-//     return fileheader;
-// }
 
 /**
  * zim_archive_has_main_entry:
@@ -289,71 +223,6 @@ zim_archive_get_illustration_item (ZimArchive *archive, unsigned int size)
         return NULL;
     }
 }
-
-// /**
-//  * zim_archive_get_article_by_index:
-//  * @file: A #ZimArchive
-//  * @index: index of an article
-//  *
-//  * Get the article at the given index.
-//  *
-//  * Returns: (transfer full): the #ZimArticle at the given index
-//  */
-// ZimArticle *
-// zim_archive_get_article_by_index (ZimArchive *file, unsigned int index)
-// {
-//     ZimArchivePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
-
-//     ZimArticle *article = zim_article_new ();
-//     zim::Article article_cpp = priv->file->getArticle (index);
-//     zim_article_set_internal_article (article, file, article_cpp);
-
-//     return article;
-// }
-
-// /**
-//  * zim_archive_get_article_by_namespace:
-//  * @file: A #ZimArchive
-//  * @namesp: the namespace
-//  * @path: the path of the article inside the namespace
-//  *
-//  * Get an article knowing its path inside a namespace.
-//  *
-//  * Returns: (transfer full): the #ZimArticle found
-//  */
-// ZimArticle *
-// zim_archive_get_article_by_namespace (ZimArchive *file, const char namesp, const char *path)
-// {
-//     ZimArchivePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
-
-//     ZimArticle *article = zim_article_new ();
-//     zim::Article article_cpp = priv->file->getArticle (namesp, path);
-//     zim_article_set_internal_article (article, file, article_cpp);
-
-//     return article;
-// }
-
-// /**
-//  * zim_archive_find_by_title:
-//  * @file: A #ZimArchive
-//  * @namesp: the namespace
-//  * @title: title
-//  *
-//  * Start search of articles corresponding to a title.
-//  *
-//  * Returns: (transfer full): the #ZimArchiveIterator
-//  */
-// ZimArchiveIterator *
-// zim_archive_find_by_title (ZimArchive *file, const char namesp, const char *title)
-// {
-//     ZimArchivePrivate *priv = ZIM_FILE_GET_PRIVATE (file);
-
-//     ZimArchiveIterator *file_iterator = zim_archive_iterator_new ();
-//     zim::Archive::const_iterator file_iterator_cpp = priv->file->findByTitle (namesp, title);
-//     zim_archive_iterator_set_internal_file_iterator (file_iterator, file, file_iterator_cpp);
-
-//     return file_iterator;
-// }
 
 /**
  * zim_archive_get_filesize:

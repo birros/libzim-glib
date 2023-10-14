@@ -1,7 +1,4 @@
-#include <memory.h>
 #include <zim/item.h>
-#include <zim/item.h>
-#include <zim/blob.h>
 #include "item.h"
 #include "archive.h"
 
@@ -130,21 +127,6 @@ zim_item_get_mimetype (ZimItem *item)
     }
 }
 
-// /**
-//  * zim_item_get_namespace:
-//  * @item: A #ZimItem
-//  *
-//  * Get the namespace of the item.
-//  *
-//  * Returns: the namespace of the item
-//  */
-// const char
-// zim_item_get_namespace (ZimItem *item)
-// {
-//     ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
-//     return priv->item.getNamespace ();
-// }
-
 /**
  * zim_item_get_data:
  * @item: A #ZimItem
@@ -184,69 +166,3 @@ zim_item_get_size (ZimItem *item)
     ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
     return priv->item.getSize ();
 }
-
-// /**
-//  * zim_item_get_offset:
-//  * @item: A #ZimItem
-//  *
-//  * Get the offset of the item data.
-//  *
-//  * Returns: the offset of the item data
-//  */
-// gsize
-// zim_item_get_offset (ZimItem *item)
-// {
-//     ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
-//     return priv->item.getOffset ();
-// }
-
-// /**
-//  * zim_item_good:
-//  * @item: A #ZimItem
-//  *
-//  * Check if the item is good.
-//  *
-//  * Returns: TRUE if it's good, FALSE otherwise
-//  */
-// gboolean
-// zim_item_good (ZimItem *item)
-// {
-//     ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
-//     return priv->item.good ();
-// }
-
-// /**
-//  * zim_item_is_redirect:
-//  * @item: A #ZimItem
-//  *
-//  * Check if the item is a redirection.
-//  *
-//  * Returns: TRUE if it's a redirection, FALSE otherwise
-//  */
-// gboolean
-// zim_item_is_redirect (ZimItem *item)
-// {
-//     ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
-//     return priv->item.isRedirect ();
-// }
-
-// /**
-//  * zim_item_get_redirect_item:
-//  * @item: A #ZimItem
-//  *
-//  * Get the item pointed by this item if it's a redirection.
-//  *
-//  * Returns: (transfer full): the #ZimItem pointed by this item
-//  */
-// ZimItem *
-// zim_item_get_redirect_item (ZimItem *item)
-// {
-//     ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
-
-//     ZimItem *redirect = zim_item_new ();
-
-//     zim::Item redirect_cpp = priv->item.getRedirectItem ();
-//     zim_item_set_internal_item (redirect, priv->zim_file, redirect_cpp);
-
-//     return redirect;
-// }

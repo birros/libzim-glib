@@ -1,6 +1,5 @@
-#include <iostream>
-#include <memory.h>
 #include <zim/suggestion.h>
+#include "archive.h"
 #include "suggestion-search.h"
 #include "suggestion-searcher.h"
 #include "suggestion-result-iterator-private.h"

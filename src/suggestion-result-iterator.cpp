@@ -1,10 +1,9 @@
 #include <iostream>
 #include <zim/suggestion.h>
-#include <zim/suggestion_iterator.h>
-#include "entry.h"
+#include "archive.h"
 #include "entry-private.h"
-#include "suggestion-result-iterator.h"
 #include "suggestion-search.h"
+#include "suggestion-result-iterator.h"
 
 /**
  * SECTION: zim-suggestion_result-iterator

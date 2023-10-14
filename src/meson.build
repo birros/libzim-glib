@@ -5,13 +5,6 @@ public_headers = [
     'suggestion-searcher.h',
     'suggestion-search.h',
     'suggestion-result-iterator.h',
-    # 'file.h',
-    # 'article.h',
-    # 'misc.h',
-    # 'fileheader.h',
-    # 'search.h',
-    # 'search-iterator.h',
-    # 'file-iterator.h'
 ]
 
 sources = [
@@ -21,13 +14,6 @@ sources = [
     'suggestion-searcher.cpp',
     'suggestion-search.cpp',
     'suggestion-result-iterator.cpp',
-    # 'file.cpp',
-    # 'article.cpp',
-    # 'misc.cpp',
-    # 'fileheader.cpp',
-    # 'search.cpp',
-    # 'search-iterator.cpp',
-    # 'file-iterator.cpp'
 ]
 
 libzim = shared_library(

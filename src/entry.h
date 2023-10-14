@@ -37,15 +37,6 @@ ZimEntry * zim_entry_new (void);
 const char * zim_entry_get_title (ZimEntry *entry);
 const char * zim_entry_get_path (ZimEntry *entry);
 ZimItem * zim_entry_get_item (ZimEntry *entry, gboolean follow);
-// const char * zim_entry_get_url (ZimEntry *entry);
-// const char * zim_entry_get_mime_type (ZimEntry *entry);
-// const char   zim_entry_get_namespace (ZimEntry *entry);
-// const char * zim_entry_get_data (ZimEntry *entry, gsize *size);
-// gsize        zim_entry_get_data_size (ZimEntry *entry);
-// gsize        zim_entry_get_offset (ZimEntry *entry);
-// gboolean     zim_entry_good (ZimEntry *entry);
-// gboolean     zim_entry_is_redirect (ZimEntry *entry);
-// ZimEntry * zim_entry_get_redirect_entry (ZimEntry *entry);
 
 G_END_DECLS
 

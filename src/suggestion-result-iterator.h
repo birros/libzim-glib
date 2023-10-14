@@ -33,7 +33,7 @@ struct _ZimSuggestionResultIteratorClass
 };
 
 GType zim_suggestion_result_iterator_get_type(void) G_GNUC_CONST;
-ZimEntry *zim_suggestion_result_iterator_get_entry(ZimSuggestionResultIterator *suggestion_result_iterator);
+ZimEntry *zim_suggestion_result_iterator_get_entry(ZimSuggestionResultIterator *suggestion_result_iterator, GError **error);
 gboolean zim_suggestion_result_iterator_next(ZimSuggestionResultIterator *suggestion_result_iterator);
 
 G_END_DECLS

@@ -8,37 +8,34 @@
 // #include "search-iterator.h"
 // #include "misc.h"
 
-#define STYLE_BOLD    "\033[1m"
-#define STYLE_NO_BOLD "\033[22m"
-
-int
-main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     // filename argument
     char *filename;
-    if (argc == 2) {
-        filename = argv [1];
-    } else {
-        fprintf (stderr, "missing zim archive argument, see README.md\n");
+    if (argc == 2)
+    {
+        filename = argv[1];
+    }
+    else
+    {
+        fprintf(stderr, "missing zim archive argument, see README.md\n");
         return 1;
     }
-
 
     // init zim
-    GError* err = NULL;
-    ZimArchive *zim_archive = zim_archive_new (filename, &err);
+    GError *err = NULL;
+    ZimArchive *zim_archive = zim_archive_new(filename, &err);
     if (err != NULL)
     {
-        fprintf (stderr, "%s\n", err->message);
-        g_error_free (err);
+        fprintf(stderr, "%s\n", err->message);
+        g_error_free(err);
         return 1;
     }
 
-
     // zim archive
-    printf ("==ZIM ARCHIVE==\n");
+    printf("==ZIM ARCHIVE==\n");
 
-    printf (STYLE_BOLD "zim_path: " STYLE_NO_BOLD "%s\n", filename);
+    printf("zim_path: %s\n", filename);
 
     unsigned int article_count = zim_archive_get_article_count(zim_archive);
     printf("article_count: %d\n", article_count);
@@ -46,72 +43,96 @@ main (int argc, char *argv[])
     unsigned int filesize = zim_archive_get_filesize(zim_archive);
     printf("filesize: %d\n", filesize);
 
-    const char * uuid = zim_archive_get_uuid(zim_archive);
+    const char *uuid = zim_archive_get_uuid(zim_archive);
     printf("uuid: %s\n", uuid);
 
-    const char * counter = zim_archive_get_metadata(zim_archive, "Counter");
+    err = NULL;
+    const char *counter = zim_archive_get_metadata(zim_archive, "Counter", &err);
+    if (err != NULL)
+    {
+        fprintf(stderr, "%s\n", err->message);
+        g_error_free(err);
+        return 1;
+    }
+
     printf("counter: %s\n", counter);
 
     gboolean hasMainEntry = zim_archive_has_main_entry(zim_archive);
     printf("hasMainEntry: %d\n", hasMainEntry);
 
-    ZimEntry* mainEntry = zim_archive_get_main_entry(zim_archive);
+    err = NULL;
+    ZimEntry *mainEntry = zim_archive_get_main_entry(zim_archive, &err);
+    if (err != NULL)
+    {
+        fprintf(stderr, "%s\n", err->message);
+        g_error_free(err);
+        return 1;
+    }
+
     printf("mainEntry: %p\n", mainEntry);
 
-    const char * mainEntryTitle = zim_entry_get_title(mainEntry);
+    const char *mainEntryTitle = zim_entry_get_title(mainEntry);
     printf("mainEntryTitle: %s\n", mainEntryTitle);
 
-    const char * mainEntryPath = zim_entry_get_path(mainEntry);
+    const char *mainEntryPath = zim_entry_get_path(mainEntry);
     printf("mainEntryPath: %s\n", mainEntryPath);
 
-    ZimItem* mainItem = zim_entry_get_item(mainEntry, TRUE);
+    ZimItem *mainItem = zim_entry_get_item(mainEntry, TRUE);
     printf("mainItem: %p\n", mainItem);
 
-    const char * mainItemTitle = zim_item_get_title(mainItem);
+    const char *mainItemTitle = zim_item_get_title(mainItem);
     printf("mainItemTitle: %s\n", mainItemTitle);
 
-    const char * mainItemPath = zim_item_get_path(mainItem);
+    const char *mainItemPath = zim_item_get_path(mainItem);
     printf("mainItemPath: %s\n", mainItemPath);
 
-    const char * mainItemMimetype = zim_item_get_mimetype(mainItem);
+    const char *mainItemMimetype = zim_item_get_mimetype(mainItem);
     printf("mainItemMimetype: %s\n", mainItemMimetype);
 
     gsize mainItemSize = zim_item_get_size(mainItem);
     printf("mainItemSize: %ld\n", mainItemSize);
 
     // first article data (10 first lines)
-    printf ("==FIRST ARTICLE DATA (10 first lines)==\n");
+    printf("==FIRST ARTICLE DATA (10 first lines)==\n");
 
     gsize size;
-    const char* data = zim_item_get_data (mainItem, &size);
-    char **lines = g_strsplit (data, "\n", 0);
+    const char *data = zim_item_get_data(mainItem, &size);
+    char **lines = g_strsplit(data, "\n", 0);
 
     // print 10 first lines
     unsigned int i = 0;
-    while (lines[i] != NULL && i < 10) {
-        printf ("%s\n", lines[i]);
+    while (lines[i] != NULL && i < 10)
+    {
+        printf("%s\n", lines[i]);
         i++;
     }
 
     // zim search suggestion mode (10 first results)
-    printf ("==ZIM SEARCH SUGGESTION MODE (10 first results)==\n");
+    printf("==ZIM SEARCH SUGGESTION MODE (10 first results)==\n");
 
-    ZimSuggestionSearcher *suggestion_searcher = zim_suggestion_searcher_new (zim_archive);
-    //g_object_unref (suggestion_searcher);
+    ZimSuggestionSearcher *suggestion_searcher = zim_suggestion_searcher_new(zim_archive);
+    // g_object_unref (suggestion_searcher);
 
     ZimSuggestionSearch *suggestion_search = zim_suggestion_searcher_suggest(suggestion_searcher, "paris");
-    //g_object_unref (suggestion_search);
+    // g_object_unref (suggestion_search);
 
     ZimSuggestionResultIterator *results_iterator = zim_suggestion_search_get_results(suggestion_search, 0, 10);
 
-    do {
-        ZimEntry *entry = zim_suggestion_result_iterator_get_entry(results_iterator);
-        if (entry != NULL) {
-            const char *title = zim_entry_get_title(entry);
-            const char *path = zim_entry_get_path(entry);
-            printf (STYLE_BOLD "title: " STYLE_NO_BOLD "%s\n", title);
-            printf (STYLE_BOLD "\tpath: " STYLE_NO_BOLD "%s\n", path);
+    do
+    {
+        GError *err = NULL;
+        ZimEntry *entry = zim_suggestion_result_iterator_get_entry(results_iterator, &err);
+        if (err != NULL)
+        {
+            fprintf(stderr, "%s\n", err->message);
+            g_error_free(err);
+            continue;
         }
+
+        const char *title = zim_entry_get_title(entry);
+        const char *path = zim_entry_get_path(entry);
+        printf("title: %s\n", title);
+        printf("\tpath: %s\n", path);
     } while (zim_suggestion_result_iterator_next(results_iterator));
 
     // // main_page
@@ -136,7 +157,6 @@ main (int argc, char *argv[])
     //     printf ("doesn't has main page\n");
     // }
 
-
     // // misc
     // printf ("==MISC==\n");
 
@@ -145,7 +165,6 @@ main (int argc, char *argv[])
 
     // printf (STYLE_BOLD "urlencoded: " STYLE_NO_BOLD "%s\n", urlencoded);
     // printf (STYLE_BOLD "urldecoded: " STYLE_NO_BOLD "%s\n", urldecoded);
-
 
     // // first_article
     // printf ("==FIRST ARTICLE==\n");
@@ -158,7 +177,6 @@ main (int argc, char *argv[])
     // printf (STYLE_BOLD "articles_namespace_begin_offset: " STYLE_NO_BOLD "%u\n", articles_namespace_begin_offset);
     // printf (STYLE_BOLD "first_article_url:               " STYLE_NO_BOLD "%s\n", first_article_url);
     // printf (STYLE_BOLD "first_article_mime_type:         " STYLE_NO_BOLD "%s\n", first_article_mime_type);
-
 
     // // first_article redirect
     // printf ("==FIRST ARTICLE REDIRECT==\n");
@@ -178,7 +196,6 @@ main (int argc, char *argv[])
     //     printf ("no redirection\n");
     // }
 
-
     // // first article data (10 first lines)
     // printf ("==FIRST ARTICLE DATA (10 first lines)==\n");
 
@@ -193,9 +210,7 @@ main (int argc, char *argv[])
     //     i++;
     // }
 
-
     // //g_assert_cmpstr (first_article_url, ==, "!!!.html");
-
 
     // // zim search suggestion mode (10 first results)
     // printf ("==ZIM SEARCH SUGGESTION MODE (10 first results)==\n");
@@ -217,7 +232,6 @@ main (int argc, char *argv[])
     //     printf (STYLE_BOLD "title: " STYLE_NO_BOLD "%s\n", title);
     //     printf (STYLE_BOLD "\turl: " STYLE_NO_BOLD "%s\n", url);
     // } while (zim_search_iterator_next(search_iterator));
-
 
     // // zim find by title
     // printf ("==ZIM FIND BY TITLE==\n");

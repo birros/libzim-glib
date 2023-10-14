@@ -64,20 +64,19 @@ zim_archive_get_internal_zim_archive(ZimArchive *zim_archive)
 ZimArchive *
 zim_archive_new(const char *zimpath, GError **error)
 {
-    ZimArchive *file;
-    file = (ZimArchive *)g_object_new(ZIM_TYPE_ARCHIVE, NULL);
-
+    ZimArchive *file = (ZimArchive *)g_object_new(ZIM_TYPE_ARCHIVE, NULL);
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(file);
+
     try
     {
         priv->file = new zim::Archive(zimpath);
+        return file;
     }
     catch (const std::exception &err)
     {
         *error = g_error_new_literal(1, 0, err.what());
+        return NULL;
     }
-
-    return file;
 }
 
 /**
@@ -98,13 +97,14 @@ zim_archive_has_main_entry(ZimArchive *archive)
 /**
  * zim_archive_get_main_entry:
  * @archive: A #ZimArchive
+ * @error: a #GError object
  *
  * Get the index of the main page.
  *
  * Returns: (transfer full): the index of the main page
  */
 ZimEntry *
-zim_archive_get_main_entry(ZimArchive *archive)
+zim_archive_get_main_entry(ZimArchive *archive, GError **error)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
 
@@ -115,10 +115,9 @@ zim_archive_get_main_entry(ZimArchive *archive)
 
         return entry;
     }
-    catch (zim::EntryNotFound &e)
+    catch (zim::EntryNotFound &err)
     {
-        std::wcout << "WARNING: zim_archive_get_main_entry(): " << e.what() << std::endl;
-
+        *error = g_error_new_literal(1, 0, err.what());
         return NULL;
     }
 }
@@ -146,13 +145,14 @@ zim_archive_get_uuid(ZimArchive *archive)
  * zim_archive_get_entry_by_path:
  * @archive: A #ZimArchive
  * @path: path of an article
+ * @error: a #GError object
  *
  * Get the article at the given path.
  *
  * Returns: (transfer full): the #ZimEntry at the given path
  */
 ZimEntry *
-zim_archive_get_entry_by_path(ZimArchive *archive, const char *path)
+zim_archive_get_entry_by_path(ZimArchive *archive, const char *path, GError **error)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
 
@@ -163,10 +163,9 @@ zim_archive_get_entry_by_path(ZimArchive *archive, const char *path)
 
         return entry;
     }
-    catch (zim::EntryNotFound &e)
+    catch (zim::EntryNotFound &err)
     {
-        std::wcout << "WARNING: zim_archive_get_entry_by_path(" << path << "): " << e.what() << std::endl;
-
+        *error = g_error_new_literal(1, 0, err.what());
         return NULL;
     }
 }
@@ -174,13 +173,14 @@ zim_archive_get_entry_by_path(ZimArchive *archive, const char *path)
 /**
  * zim_archive_get_random_entry:
  * @archive: A #ZimArchive
+ * @error: a #GError object
  *
  * Get a random entry.
  *
  * Returns: (transfer full): a random #ZimEntry
  */
 ZimEntry *
-zim_archive_get_random_entry(ZimArchive *archive)
+zim_archive_get_random_entry(ZimArchive *archive, GError **error)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
 
@@ -191,10 +191,9 @@ zim_archive_get_random_entry(ZimArchive *archive)
 
         return entry;
     }
-    catch (zim::EntryNotFound &e)
+    catch (zim::EntryNotFound &err)
     {
-        std::wcout << "WARNING: zim_archive_get_random_entry(): " << e.what() << std::endl;
-
+        *error = g_error_new_literal(1, 0, err.what());
         return NULL;
     }
 }
@@ -203,13 +202,14 @@ zim_archive_get_random_entry(ZimArchive *archive)
  * zim_archive_get_illustration_item:
  * @archive: A #ZimArchive
  * @size: size of the illustration
+ * @error: a #GError object
  *
  * Get the illustration.
  *
  * Returns: (transfer full): a illustration #ZimItem
  */
 ZimItem *
-zim_archive_get_illustration_item(ZimArchive *archive, unsigned int size)
+zim_archive_get_illustration_item(ZimArchive *archive, unsigned int size, GError **error)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
 
@@ -220,10 +220,9 @@ zim_archive_get_illustration_item(ZimArchive *archive, unsigned int size)
 
         return item;
     }
-    catch (zim::EntryNotFound &e)
+    catch (zim::EntryNotFound &err)
     {
-        std::wcout << "WARNING: zim_archive_get_illustration_item(" << size << "): " << e.what() << std::endl;
-
+        *error = g_error_new_literal(1, 0, err.what());
         return NULL;
     }
 }
@@ -280,13 +279,14 @@ zim_archive_get_article_count(ZimArchive *archive)
  * zim_archive_get_metadata:
  * @archive: A #ZimArchive
  * @name: name of metadata
+ * @error: a #GError object
  *
  * Get the metadata associated to the name.
  *
  * Returns: the metadata associated to the name
  */
 const char *
-zim_archive_get_metadata(ZimArchive *archive, const char *name)
+zim_archive_get_metadata(ZimArchive *archive, const char *name, GError **error)
 {
     ZimArchivePrivate *priv = ZIM_ARCHIVE_GET_PRIVATE(archive);
 
@@ -300,10 +300,9 @@ zim_archive_get_metadata(ZimArchive *archive, const char *name)
 
         return g_strdup(metadata.c_str());
     }
-    catch (zim::EntryNotFound &e)
+    catch (zim::EntryNotFound &err)
     {
-        std::wcout << "WARNING: zim_archive_get_metadata(" << name << "): " << e.what() << std::endl;
-
+        *error = g_error_new_literal(1, 0, err.what());
         return NULL;
     }
 }

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <zim/suggestion.h>
 #include "archive.h"
 #include "entry-private.h"
@@ -73,13 +72,14 @@ zim_suggestion_result_iterator_new(ZimArchive *archive, ZimSuggestionSearch *sug
 /**
  * zim_suggestion_result_iterator_get_entry:
  * @suggestion_result_iterator: A #ZimSuggestionResultIterator
+ * @error: a #GError object
  *
  * Get the url of the article.
  *
  * Returns: (transfer full): the url of the article
  */
 ZimEntry *
-zim_suggestion_result_iterator_get_entry(ZimSuggestionResultIterator *suggestion_result_iterator)
+zim_suggestion_result_iterator_get_entry(ZimSuggestionResultIterator *suggestion_result_iterator, GError **error)
 {
     ZimSuggestionResultIteratorPrivate *priv = ZIM_SUGGESTION_RESULT_ITERATOR_GET_PRIVATE(suggestion_result_iterator);
 
@@ -90,10 +90,9 @@ zim_suggestion_result_iterator_get_entry(ZimSuggestionResultIterator *suggestion
 
         return entry;
     }
-    catch (std::runtime_error &e)
+    catch (std::runtime_error &err)
     {
-        std::wcout << "WARNING: zim_suggestion_result_iterator_get_entry(): " << e.what() << std::endl;
-
+        *error = g_error_new_literal(1, 0, err.what());
         return NULL;
     }
 }

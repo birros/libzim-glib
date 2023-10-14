@@ -1,0 +1,12 @@
+/.devcontainer
+/.github
+/.vscode
+/build
+/src/tests/testdata/*
+!/src/tests/testdata/Makefile
+/.earthlyignore
+/.gitignore
+/.tool-versions
+/Earthfile
+/LICENSE.txt
+/README.md

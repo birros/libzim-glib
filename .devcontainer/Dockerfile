@@ -1,7 +1,8 @@
 FROM mcr.microsoft.com/devcontainers/cpp:1-debian-12
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
+RUN apt-get update && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get -y install --no-install-recommends \
         ca-certificates \
         curl \
         xz-utils \
@@ -16,6 +17,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         libxapian-dev \
         libzstd-dev \
         liblzma-dev \
+        libicu-dev \
         libvala-0.56-dev \
         libjsonrpc-glib-1.0-dev \
         libgee-0.8-dev && \

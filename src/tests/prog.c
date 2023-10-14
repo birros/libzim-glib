@@ -25,8 +25,8 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    unsigned int article_count = zim_archive_get_article_count(zim_archive);
-    assert(article_count == 7253);
+    unsigned int article_count = zim_archive_get_all_entry_count(zim_archive);
+    assert(article_count == 7646);
 
     unsigned int filesize = zim_archive_get_filesize(zim_archive);
     assert(filesize == 32131510);

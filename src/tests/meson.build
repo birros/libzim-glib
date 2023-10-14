@@ -1,3 +1,18 @@
+testdata_command = run_command('make', '-C', 'testdata', check: true)
+testdata_output = testdata_command.stdout().strip()
+testdata_error = testdata_command.stderr().strip()
+if (testdata_output != '')
+    message(testdata_output)
+endif
+if (testdata_error != '')
+    message(testdata_error)
+endif
+
+testfile = join_paths(
+    meson.source_root(),
+    'src/tests/testdata/zim-testing-suite-0.4/withns/wikipedia_en_climate_change_nopic_2020-01.zim'
+)
+
 add_languages('c')
 prog_c = executable(
     'prog-c',
@@ -8,7 +23,7 @@ prog_c = executable(
         libzim_private_dep
     ]
 )
-test('prog-c', prog_c)
+test('prog-c', prog_c, args : [testfile])
 
 # add_languages('vala')
 # prog_vala = executable(

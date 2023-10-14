@@ -93,7 +93,7 @@ pkg.generate(
     requires: ['glib-2.0', 'gobject-2.0']
 )
 
-if enable_tests
+if tests
     libzim_private = static_library(
         'zim-glib-private',
         sources: sources,

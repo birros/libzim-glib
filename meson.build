@@ -19,6 +19,6 @@ zim = dependency('libzim', version : '>=7.0.0')
 
 gnome = import('gnome')
 
-enable_tests = get_option('enable-tests')
+tests = get_option('tests')
 
 subdir('src')

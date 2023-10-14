@@ -13,10 +13,10 @@ meson compile -C build
 
 ## Tests
 
-Enable tests by passing `enable-tests=true` argument during meson configuration.
+Enable tests by passing `tests=true` argument during meson configuration.
 
 ```
-meson setup -Denable-tests=true build
+meson setup -Dtests=true build
 ```
 
 **Disclaimer:** tests are not truely unit tests, just try to use the library to
@@ -26,7 +26,7 @@ Those are useful to quickly show result of bindings use.
 ### All tests
 
 ```
-meson test -C build --test-args=<archive-full-path>
+meson test -C build
 ```
 
 **Notice:** don't forget to:
@@ -38,7 +38,7 @@ meson test -C build --test-args=<archive-full-path>
 ### Test and print output of a specific test
 
 ```
-meson test -C build --test-args=<archive-full-path> prog-c -v
+meson test -C build prog-c -v
 ```
 
 **Notice:** same requirements as previous notice.

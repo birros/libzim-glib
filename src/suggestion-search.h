@@ -19,7 +19,7 @@ G_BEGIN_DECLS
 #define ZIM_SUGGESTION_SEARCH_GET_CLASS(obj) \
     (G_TYPE_INSTANCE_GET_CLASS((obj), ZIM_TYPE_SUGGESTION_SEARCH, ZimSuggestionSearchClass))
 
-typedef struct _ZimSuggestionSearch      ZimSuggestionSearch;
+typedef struct _ZimSuggestionSearch ZimSuggestionSearch;
 typedef struct _ZimSuggestionSearchClass ZimSuggestionSearchClass;
 
 struct _ZimSuggestionSearch
@@ -32,8 +32,8 @@ struct _ZimSuggestionSearchClass
     GObjectClass parent_class;
 };
 
-GType             zim_suggestion_search_get_type (void) G_GNUC_CONST;
-ZimSuggestionResultIterator * zim_suggestion_search_get_results (ZimSuggestionSearch *suggestion_search, int start, int max_results);
+GType zim_suggestion_search_get_type(void) G_GNUC_CONST;
+ZimSuggestionResultIterator *zim_suggestion_search_get_results(ZimSuggestionSearch *suggestion_search, int start, int max_results);
 
 G_END_DECLS
 

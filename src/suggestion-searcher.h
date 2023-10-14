@@ -20,7 +20,7 @@ G_BEGIN_DECLS
 #define ZIM_SUGGESTION_SEARCHER_GET_CLASS(obj) \
     (G_TYPE_INSTANCE_GET_CLASS((obj), ZIM_TYPE_SUGGESTION_SEARCHER, ZimSuggestionSearcherClass))
 
-typedef struct _ZimSuggestionSearcher      ZimSuggestionSearcher;
+typedef struct _ZimSuggestionSearcher ZimSuggestionSearcher;
 typedef struct _ZimSuggestionSearcherClass ZimSuggestionSearcherClass;
 
 struct _ZimSuggestionSearcher
@@ -33,9 +33,9 @@ struct _ZimSuggestionSearcherClass
     GObjectClass parent_class;
 };
 
-GType             zim_suggestion_searcher_get_type (void) G_GNUC_CONST;
-ZimSuggestionSearcher *         zim_suggestion_searcher_new (ZimArchive *zim_archive);
-ZimSuggestionSearch * zim_suggestion_searcher_suggest (ZimSuggestionSearcher *zim_suggestion_searcher, const char *query);
+GType zim_suggestion_searcher_get_type(void) G_GNUC_CONST;
+ZimSuggestionSearcher *zim_suggestion_searcher_new(ZimArchive *zim_archive);
+ZimSuggestionSearch *zim_suggestion_searcher_suggest(ZimSuggestionSearcher *zim_suggestion_searcher, const char *query);
 
 G_END_DECLS
 

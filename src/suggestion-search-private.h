@@ -5,6 +5,6 @@
 #include "suggestion-search.h"
 #include "suggestion-searcher.h"
 
-ZimSuggestionSearch * zim_suggestion_search_new (ZimArchive *archive, ZimSuggestionSearcher *suggestion_searcher,  zim::SuggestionSearch * search_cpp);
+ZimSuggestionSearch *zim_suggestion_search_new(ZimArchive *archive, ZimSuggestionSearcher *suggestion_searcher, zim::SuggestionSearch *search_cpp);
 
 #endif

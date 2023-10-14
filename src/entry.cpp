@@ -12,7 +12,7 @@
  */
 
 #define ZIM_ENTRY_GET_PRIVATE(obj) \
-    ((ZimEntryPrivate *) zim_entry_get_instance_private ((ZimEntry *) (obj)))
+    ((ZimEntryPrivate *)zim_entry_get_instance_private((ZimEntry *)(obj)))
 
 typedef struct _ZimEntryPrivate ZimEntryPrivate;
 struct _ZimEntryPrivate
@@ -21,36 +21,35 @@ struct _ZimEntryPrivate
     zim::Entry entry;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (ZimEntry, zim_entry, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE(ZimEntry, zim_entry, G_TYPE_OBJECT)
 
 static void
-zim_entry_finalize (GObject *gobject)
+zim_entry_finalize(GObject *gobject)
 {
-    ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE (gobject);
+    ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE(gobject);
 
-    g_object_unref (priv->zim_archive);
+    g_object_unref(priv->zim_archive);
 
-    G_OBJECT_CLASS (zim_entry_parent_class)->dispose (gobject);
+    G_OBJECT_CLASS(zim_entry_parent_class)->dispose(gobject);
 }
 
 static void
-zim_entry_class_init (ZimEntryClass *klass)
+zim_entry_class_init(ZimEntryClass *klass)
 {
-    G_OBJECT_CLASS (klass)->finalize = zim_entry_finalize;
+    G_OBJECT_CLASS(klass)->finalize = zim_entry_finalize;
 }
 
 static void
-zim_entry_init (ZimEntry *object)
+zim_entry_init(ZimEntry *object)
 {
 }
 
-void
-zim_entry_set_internal_entry (ZimEntry *entry, ZimArchive *zim_archive, const zim::Entry entry_cpp)
+void zim_entry_set_internal_entry(ZimEntry *entry, ZimArchive *zim_archive, const zim::Entry entry_cpp)
 {
-    ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE (entry);
+    ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE(entry);
 
     priv->zim_archive = zim_archive;
-    g_object_ref (zim_archive);
+    g_object_ref(zim_archive);
 
     priv->entry = entry_cpp;
 }
@@ -63,9 +62,9 @@ zim_entry_set_internal_entry (ZimEntry *entry, ZimArchive *zim_archive, const zi
  * Returns: (transfer full): the newly created #ZimEntry instance
  */
 ZimEntry *
-zim_entry_new (void)
+zim_entry_new(void)
 {
-    ZimEntry *entry = (ZimEntry *) g_object_new (ZIM_TYPE_ENTRY, NULL);
+    ZimEntry *entry = (ZimEntry *)g_object_new(ZIM_TYPE_ENTRY, NULL);
 
     // ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE (entry);
     // priv->entry = zim::Entry ();
@@ -82,11 +81,11 @@ zim_entry_new (void)
  * Returns: (transfer full): the title of the entry
  */
 const char *
-zim_entry_get_title (ZimEntry *entry)
+zim_entry_get_title(ZimEntry *entry)
 {
-    ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE (entry);
-    std::string title = priv->entry.getTitle ();
-    return g_strdup (title.c_str ());
+    ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE(entry);
+    std::string title = priv->entry.getTitle();
+    return g_strdup(title.c_str());
 }
 
 /**
@@ -98,11 +97,11 @@ zim_entry_get_title (ZimEntry *entry)
  * Returns: (transfer full): the path of the entry
  */
 const char *
-zim_entry_get_path (ZimEntry *entry)
+zim_entry_get_path(ZimEntry *entry)
 {
-    ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE (entry);
-    std::string path = priv->entry.getPath ();
-    return g_strdup (path.c_str ());
+    ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE(entry);
+    std::string path = priv->entry.getPath();
+    return g_strdup(path.c_str());
 }
 
 /**
@@ -114,15 +113,15 @@ zim_entry_get_path (ZimEntry *entry)
  *
  * Returns: (transfer full): the index of the main page
  */
-ZimItem*
-zim_entry_get_item (ZimEntry *entry, gboolean follow)
+ZimItem *
+zim_entry_get_item(ZimEntry *entry, gboolean follow)
 {
-    ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE (entry);
+    ZimEntryPrivate *priv = ZIM_ENTRY_GET_PRIVATE(entry);
 
-    ZimItem *item = zim_item_new ();
+    ZimItem *item = zim_item_new();
 
-    zim::Item item_cpp = priv->entry.getItem (follow);
-    zim_item_set_internal_item (item, priv->zim_archive, item_cpp);
+    zim::Item item_cpp = priv->entry.getItem(follow);
+    zim_item_set_internal_item(item, priv->zim_archive, item_cpp);
 
     return item;
 }

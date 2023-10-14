@@ -13,7 +13,7 @@
  */
 
 #define ZIM_SUGGESTION_SEARCH_GET_PRIVATE(obj) \
-    ((ZimSuggestionSearchPrivate *) zim_suggestion_search_get_instance_private ((ZimSuggestionSearch *) (obj)))
+    ((ZimSuggestionSearchPrivate *)zim_suggestion_search_get_instance_private((ZimSuggestionSearch *)(obj)))
 
 typedef struct _ZimSuggestionSearchPrivate ZimSuggestionSearchPrivate;
 struct _ZimSuggestionSearchPrivate
@@ -23,33 +23,34 @@ struct _ZimSuggestionSearchPrivate
     zim::SuggestionSearch *suggestion_search;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (ZimSuggestionSearch, zim_suggestion_search, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE(ZimSuggestionSearch, zim_suggestion_search, G_TYPE_OBJECT)
 
 static void
-zim_suggestion_search_finalize (GObject *gobject)
+zim_suggestion_search_finalize(GObject *gobject)
 {
-    ZimSuggestionSearchPrivate *priv = ZIM_SUGGESTION_SEARCH_GET_PRIVATE (gobject);
+    ZimSuggestionSearchPrivate *priv = ZIM_SUGGESTION_SEARCH_GET_PRIVATE(gobject);
 
-    g_object_unref (priv->zim_archive);
-    g_object_unref (priv->zim_suggestion_searcher);
+    g_object_unref(priv->zim_archive);
+    g_object_unref(priv->zim_suggestion_searcher);
 
-    G_OBJECT_CLASS (zim_suggestion_search_parent_class)->dispose (gobject);
+    G_OBJECT_CLASS(zim_suggestion_search_parent_class)->dispose(gobject);
 }
 
 static void
-zim_suggestion_search_class_init (ZimSuggestionSearchClass *klass)
+zim_suggestion_search_class_init(ZimSuggestionSearchClass *klass)
 {
-    G_OBJECT_CLASS (klass)->finalize = zim_suggestion_search_finalize;
+    G_OBJECT_CLASS(klass)->finalize = zim_suggestion_search_finalize;
 }
 
 static void
-zim_suggestion_search_init (ZimSuggestionSearch *object)
+zim_suggestion_search_init(ZimSuggestionSearch *object)
 {
 }
 
-ZimSuggestionSearch * zim_suggestion_search_new (ZimArchive  *archive, ZimSuggestionSearcher *suggestion_searcher, zim::SuggestionSearch * search_cpp) {
-    ZimSuggestionSearch *suggestion_search = (ZimSuggestionSearch *) g_object_new (ZIM_TYPE_SUGGESTION_SEARCH, NULL);
-    ZimSuggestionSearchPrivate *priv = ZIM_SUGGESTION_SEARCH_GET_PRIVATE (suggestion_search);
+ZimSuggestionSearch *zim_suggestion_search_new(ZimArchive *archive, ZimSuggestionSearcher *suggestion_searcher, zim::SuggestionSearch *search_cpp)
+{
+    ZimSuggestionSearch *suggestion_search = (ZimSuggestionSearch *)g_object_new(ZIM_TYPE_SUGGESTION_SEARCH, NULL);
+    ZimSuggestionSearchPrivate *priv = ZIM_SUGGESTION_SEARCH_GET_PRIVATE(suggestion_search);
 
     priv->zim_archive = archive;
     priv->zim_suggestion_searcher = suggestion_searcher;
@@ -71,9 +72,9 @@ ZimSuggestionSearch * zim_suggestion_search_new (ZimArchive  *archive, ZimSugges
  * Returns: (transfer full): a #ZimSuggestionResultIterator instance
  */
 ZimSuggestionResultIterator *
-zim_suggestion_search_get_results (ZimSuggestionSearch *suggestion_search, int start, int max_results)
+zim_suggestion_search_get_results(ZimSuggestionSearch *suggestion_search, int start, int max_results)
 {
-    ZimSuggestionSearchPrivate *priv = ZIM_SUGGESTION_SEARCH_GET_PRIVATE (suggestion_search);
+    ZimSuggestionSearchPrivate *priv = ZIM_SUGGESTION_SEARCH_GET_PRIVATE(suggestion_search);
 
     zim::SuggestionResultSet results = priv->suggestion_search->getResults(start, max_results);
 

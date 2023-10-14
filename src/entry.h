@@ -19,7 +19,7 @@ G_BEGIN_DECLS
 #define ZIM_ENTRY_GET_CLASS(obj) \
     (G_TYPE_INSTANCE_GET_CLASS((obj), ZIM_TYPE_ENTRY, ZimEntryClass))
 
-typedef struct _ZimEntry      ZimEntry;
+typedef struct _ZimEntry ZimEntry;
 typedef struct _ZimEntryClass ZimEntryClass;
 
 struct _ZimEntry
@@ -32,11 +32,11 @@ struct _ZimEntryClass
     GObjectClass parent_class;
 };
 
-GType        zim_entry_get_type (void);
-ZimEntry * zim_entry_new (void);
-const char * zim_entry_get_title (ZimEntry *entry);
-const char * zim_entry_get_path (ZimEntry *entry);
-ZimItem * zim_entry_get_item (ZimEntry *entry, gboolean follow);
+GType zim_entry_get_type(void);
+ZimEntry *zim_entry_new(void);
+const char *zim_entry_get_title(ZimEntry *entry);
+const char *zim_entry_get_path(ZimEntry *entry);
+ZimItem *zim_entry_get_item(ZimEntry *entry, gboolean follow);
 
 G_END_DECLS
 

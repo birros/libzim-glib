@@ -11,7 +11,7 @@
  */
 
 #define ZIM_ITEM_GET_PRIVATE(obj) \
-    ((ZimItemPrivate *) zim_item_get_instance_private ((ZimItem *) (obj)))
+    ((ZimItemPrivate *)zim_item_get_instance_private((ZimItem *)(obj)))
 
 typedef struct _ZimItemPrivate ZimItemPrivate;
 struct _ZimItemPrivate
@@ -20,36 +20,35 @@ struct _ZimItemPrivate
     zim::Item item;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (ZimItem, zim_item, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE(ZimItem, zim_item, G_TYPE_OBJECT)
 
 static void
-zim_item_finalize (GObject *gobject)
+zim_item_finalize(GObject *gobject)
 {
-    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (gobject);
+    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE(gobject);
 
-    g_object_unref (priv->zim_archive);
+    g_object_unref(priv->zim_archive);
 
-    G_OBJECT_CLASS (zim_item_parent_class)->dispose (gobject);
+    G_OBJECT_CLASS(zim_item_parent_class)->dispose(gobject);
 }
 
 static void
-zim_item_class_init (ZimItemClass *klass)
+zim_item_class_init(ZimItemClass *klass)
 {
-    G_OBJECT_CLASS (klass)->finalize = zim_item_finalize;
+    G_OBJECT_CLASS(klass)->finalize = zim_item_finalize;
 }
 
 static void
-zim_item_init (ZimItem *object)
+zim_item_init(ZimItem *object)
 {
 }
 
-void
-zim_item_set_internal_item (ZimItem *item, ZimArchive *zim_archive, const zim::Item item_cpp)
+void zim_item_set_internal_item(ZimItem *item, ZimArchive *zim_archive, const zim::Item item_cpp)
 {
-    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
+    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE(item);
 
     priv->zim_archive = zim_archive;
-    g_object_ref (zim_archive);
+    g_object_ref(zim_archive);
 
     priv->item = item_cpp;
 }
@@ -62,9 +61,9 @@ zim_item_set_internal_item (ZimItem *item, ZimArchive *zim_archive, const zim::I
  * Returns: (transfer full): the newly created #ZimItem instance
  */
 ZimItem *
-zim_item_new (void)
+zim_item_new(void)
 {
-    ZimItem *item = (ZimItem *) g_object_new (ZIM_TYPE_ITEM, NULL);
+    ZimItem *item = (ZimItem *)g_object_new(ZIM_TYPE_ITEM, NULL);
 
     // ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
     // priv->item = zim::Item ();
@@ -81,11 +80,11 @@ zim_item_new (void)
  * Returns: (transfer full): the title of the item
  */
 const char *
-zim_item_get_title (ZimItem *item)
+zim_item_get_title(ZimItem *item)
 {
-    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
-    std::string title = priv->item.getTitle ();
-    return g_strdup (title.c_str ());
+    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE(item);
+    std::string title = priv->item.getTitle();
+    return g_strdup(title.c_str());
 }
 
 /**
@@ -97,11 +96,11 @@ zim_item_get_title (ZimItem *item)
  * Returns: (transfer full): the path of the item
  */
 const char *
-zim_item_get_path (ZimItem *item)
+zim_item_get_path(ZimItem *item)
 {
-    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
-    std::string path = priv->item.getPath ();
-    return g_strdup (path.c_str ());
+    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE(item);
+    std::string path = priv->item.getPath();
+    return g_strdup(path.c_str());
 }
 
 /**
@@ -113,17 +112,20 @@ zim_item_get_path (ZimItem *item)
  * Returns: (transfer full): the mime type of the item
  */
 const char *
-zim_item_get_mimetype (ZimItem *item)
+zim_item_get_mimetype(ZimItem *item)
 {
-    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
-    try {
-        std::string mime_type = priv->item.getMimetype ();
-        return g_strdup (mime_type.c_str ());
-    } catch (std::runtime_error const& e) {
-        std::wcout << "WARNING: zim_item_get_mimetype(): " << e.what () << std::endl;
+    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE(item);
+    try
+    {
+        std::string mime_type = priv->item.getMimetype();
+        return g_strdup(mime_type.c_str());
+    }
+    catch (std::runtime_error const &e)
+    {
+        std::wcout << "WARNING: zim_item_get_mimetype(): " << e.what() << std::endl;
 
         std::string mime_type = "";
-        return g_strdup (mime_type.c_str ());
+        return g_strdup(mime_type.c_str());
     }
 }
 
@@ -137,17 +139,17 @@ zim_item_get_mimetype (ZimItem *item)
  * Returns: (array length=size) (element-type guint8) (transfer full): data of the item
  */
 const char *
-zim_item_get_data (ZimItem *item, gsize *size)
+zim_item_get_data(ZimItem *item, gsize *size)
 {
-    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
+    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE(item);
 
-    zim::Blob blob = priv->item.getData ();
+    zim::Blob blob = priv->item.getData();
 
     *size = blob.size();
 
     // copy the data
-    char *content = (char*) malloc (blob.size () * sizeof (char));
-    memcpy (content, blob.data (), blob.size ());
+    char *content = (char *)malloc(blob.size() * sizeof(char));
+    memcpy(content, blob.data(), blob.size());
 
     return content;
 }
@@ -160,9 +162,8 @@ zim_item_get_data (ZimItem *item, gsize *size)
  *
  * Returns: the data size of the item
  */
-gsize
-zim_item_get_size (ZimItem *item)
+gsize zim_item_get_size(ZimItem *item)
 {
-    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE (item);
-    return priv->item.getSize ();
+    ZimItemPrivate *priv = ZIM_ITEM_GET_PRIVATE(item);
+    return priv->item.getSize();
 }

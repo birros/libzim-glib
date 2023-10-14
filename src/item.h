@@ -18,7 +18,7 @@ G_BEGIN_DECLS
 #define ZIM_ITEM_GET_CLASS(obj) \
     (G_TYPE_INSTANCE_GET_CLASS((obj), ZIM_TYPE_ITEM, ZimItemClass))
 
-typedef struct _ZimItem      ZimItem;
+typedef struct _ZimItem ZimItem;
 typedef struct _ZimItemClass ZimItemClass;
 
 struct _ZimItem
@@ -31,13 +31,13 @@ struct _ZimItemClass
     GObjectClass parent_class;
 };
 
-GType        zim_item_get_type (void);
-ZimItem * zim_item_new (void);
-const char * zim_item_get_title (ZimItem *item);
-const char * zim_item_get_path (ZimItem *item);
-const char * zim_item_get_mimetype (ZimItem *item);
-const char * zim_item_get_data (ZimItem *item, gsize *size);
-gsize        zim_item_get_size (ZimItem *item);
+GType zim_item_get_type(void);
+ZimItem *zim_item_new(void);
+const char *zim_item_get_title(ZimItem *item);
+const char *zim_item_get_path(ZimItem *item);
+const char *zim_item_get_mimetype(ZimItem *item);
+const char *zim_item_get_data(ZimItem *item, gsize *size);
+gsize zim_item_get_size(ZimItem *item);
 
 G_END_DECLS
 

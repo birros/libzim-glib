@@ -58,7 +58,7 @@ zim_metadata = custom_target(
     command: [cp, '@INPUT@', '@OUTPUT@']
 )
 
-# the move command and metadatadir's src argument are for fixing the destination
+# The move command and metadatadir's src argument are for fixing the destination
 # path of the output file
 vapigen = find_program('vapigen')
 zim_vapi = custom_target(

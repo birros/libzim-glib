@@ -24,6 +24,7 @@ RUN apt-get update && \
     apt-get clean && \
  	rm -rf /var/lib/apt/lists/*
 
+# Required by vala-language-server
 RUN curl \
         -L https://github.com/uncrustify/uncrustify/archive/refs/tags/uncrustify-0.77.1.tar.gz \
         -o uncrustify-0.77.1.tar.gz && \
@@ -42,6 +43,7 @@ RUN curl \
             cd && \
     rm -rf uncrustify*
 
+# Adds Vala support to VSCode
 RUN curl \
         -L https://github.com/vala-lang/vala-language-server/releases/download/0.48.7/vala-language-server-0.48.7.tar.xz \
         -o vala-language-server-0.48.7.tar.xz && \

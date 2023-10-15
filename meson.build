@@ -1,4 +1,4 @@
-project('libzim-glib', ['cpp', 'c'], version: '3.2.0')
+project('libzim-glib', ['cpp', 'c'], version: '4.0.0')
 
 zim_version = meson.project_version()
 zim_version_digits = zim_version.split('.')
@@ -15,10 +15,10 @@ includedir = join_paths(prefix, get_option('includedir'))
 
 glib = dependency('glib-2.0')
 gobject = dependency('gobject-2.0')
-zim = dependency('libzim', version : '>=3.0.0')
+zim = dependency('libzim', version : '>=7.0.0')
 
 gnome = import('gnome')
 
-enable_tests = get_option('enable-tests')
+tests = get_option('tests')
 
 subdir('src')

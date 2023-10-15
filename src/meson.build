@@ -1,21 +1,19 @@
 public_headers = [
-    'file.h',
-    'article.h',
-    'misc.h',
-    'fileheader.h',
-    'search.h',
-    'search-iterator.h',
-    'file-iterator.h'
+    'archive.h',
+    'entry.h',
+    'item.h',
+    'suggestion-searcher.h',
+    'suggestion-search.h',
+    'suggestion-result-iterator.h',
 ]
 
 sources = [
-    'file.cpp',
-    'article.cpp',
-    'misc.cpp',
-    'fileheader.cpp',
-    'search.cpp',
-    'search-iterator.cpp',
-    'file-iterator.cpp'
+    'archive.cpp',
+    'entry.cpp',
+    'item.cpp',
+    'suggestion-searcher.cpp',
+    'suggestion-search.cpp',
+    'suggestion-result-iterator.cpp',
 ]
 
 libzim = shared_library(
@@ -60,7 +58,7 @@ zim_metadata = custom_target(
     command: [cp, '@INPUT@', '@OUTPUT@']
 )
 
-# the move command and metadatadir's src argument are for fixing the destination
+# The move command and metadatadir's src argument are for fixing the destination
 # path of the output file
 vapigen = find_program('vapigen')
 zim_vapi = custom_target(
@@ -95,7 +93,7 @@ pkg.generate(
     requires: ['glib-2.0', 'gobject-2.0']
 )
 
-if enable_tests
+if tests
     libzim_private = static_library(
         'zim-glib-private',
         sources: sources,

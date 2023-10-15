@@ -6,7 +6,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"mesonbuild.mesonbuild"
+				"mesonbuild.mesonbuild",
+				"prince781.vala"
 			]
 		}
 	}

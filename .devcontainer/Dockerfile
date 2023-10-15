@@ -1,7 +1,8 @@
 FROM mcr.microsoft.com/devcontainers/cpp:1-debian-12
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
+RUN apt-get update && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get -y install --no-install-recommends \
         ca-certificates \
         curl \
         xz-utils \
@@ -15,9 +16,47 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         python3-gi \
         libxapian-dev \
         libzstd-dev \
-        liblzma-dev && \
+        liblzma-dev \
+        libicu-dev \
+        libvala-0.56-dev \
+        libjsonrpc-glib-1.0-dev \
+        libgee-0.8-dev && \
     apt-get clean && \
  	rm -rf /var/lib/apt/lists/*
+
+# Required by vala-language-server
+RUN curl \
+        -L https://github.com/uncrustify/uncrustify/archive/refs/tags/uncrustify-0.77.1.tar.gz \
+        -o uncrustify-0.77.1.tar.gz && \
+    tar -xvf uncrustify-0.77.1.tar.gz --exclude="tests" && \
+    cd uncrustify-uncrustify-0.77.1 && \
+        mkdir build && \
+        cd build && \
+            cmake \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DBUILD_TESTING=false \
+                -DCMAKE_INSTALL_PREFIX=/usr \
+                -DCMAKE_INSTALL_LIBDIR=lib \
+                .. && \
+            make && \
+            make install && \
+            cd && \
+    rm -rf uncrustify*
+
+# Adds Vala support to VSCode
+RUN curl \
+        -L https://github.com/vala-lang/vala-language-server/releases/download/0.48.7/vala-language-server-0.48.7.tar.xz \
+        -o vala-language-server-0.48.7.tar.xz && \
+    tar -xvf vala-language-server-0.48.7.tar.xz && \
+    cd vala-language-server-0.48.7 && \
+        meson setup \
+            --prefix=/usr \
+            --libdir=lib \
+            build && \
+        meson compile -C build && \
+        meson install -C build && \
+        cd && \
+    rm -rf vala-language-server*
 
 # RUN curl \
 #         -L https://oligarchy.co.uk/xapian/1.4.18/xapian-core-1.4.18.tar.xz \
@@ -53,10 +92,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     rm -rf zstd*
 
 RUN curl \
-        -L https://github.com/openzim/libzim/archive/6.2.2.tar.gz \
-        -o libzim-6.2.2.tar.gz && \
-    tar -xvf libzim-6.2.2.tar.gz && \
-    cd libzim-6.2.2 && \
+        -L https://github.com/openzim/libzim/archive/7.2.2.tar.gz \
+        -o libzim-7.2.2.tar.gz && \
+    tar -xvf libzim-7.2.2.tar.gz && \
+    cd libzim-7.2.2 && \
         meson setup \
             --prefix=/usr \
             --libdir=lib \
